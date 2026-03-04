@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleanPro — プロ仕様のハウスクリーニング用品</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f4f7fa;
+      --white:    #ffffff;
+      --surface:  #eef2f7;
+      --border:   #dde3ed;
+      --accent:   #0066ff;
+      --accent2:  #00b894;
+      --accent3:  #fd7c3b;
+      --danger:   #e74c3c;
+      --text:     #1a2233;
+      --muted:    #6b7a99;
+      --radius:   14px;
+      --shadow:   0 4px 24px rgba(0,0,0,.07);
+      --shadow-lg:0 12px 48px rgba(0,0,0,.12);
+      --font:     'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.65; }
+    a { color: var(--accent); text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Badge / Tag ── */
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 99px;
+      letter-spacing: .05em;
+    }
+    .badge-green  { background: var(--accent2); }
+    .badge-orange { background: var(--accent3); }
+    .badge-red    { background: var(--danger); }
+    .badge-gray   { background: var(--muted); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #4da3ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -.02em; }
+    .logo-text span { color: var(--accent); }
+
+    .nav-search {
+      flex: 1; max-width: 440px;
+      display: flex; align-items: center;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      padding: 8px 16px; gap: 8px;
+    }
+    .nav-search input {
+      border: none; background: transparent; outline: none;
+      font-size: 14px; color: var(--text); width: 100%;
+      font-family: var(--font);
+    }
+    .nav-search input::placeholder { color: var(--muted); }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-icon-btn {
+      position: relative;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; cursor: pointer; transition: background .2s;
+    }
+    .nav-icon-btn:hover { background: var(--border); }
+    .cart-count {
+      position: absolute; top: -4px; right: -4px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--danger); color: #fff;
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-login {
+      background: var(--accent); color: #fff;
+      font-size: 13px; font-weight: 700;
+      padding: 8px 20px; border-radius: 8px;
+      border: none; cursor: pointer; transition: opacity .2s;
+      font-family: var(--font);
+    }
+    .btn-login:hover { opacity: .85; }
+
+    /* ── Hero Banner ── */
+    .hero-banner {
+      background: linear-gradient(135deg, #0a1628 0%, #0033aa 50%, #0066ff 100%);
+      color: #fff;
+      padding: 64px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 80% 50%, rgba(0,184,148,.25) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 10% 80%, rgba(255,255,255,.05) 0%, transparent 50%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 40px;
+    }
+    @media (max-width: 768px) { .hero-inner { grid-template-columns: 1fr; } }
+    .hero-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 12px; }
+    .hero-banner h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+    .hero-banner h1 em { color: #7fffdb; font-style: normal; }
+    .hero-banner p { font-size: 1rem; color: rgba(255,255,255,.75); max-width: 480px; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--accent);
+      font-weight: 800; font-size: 14px;
+      padding: 12px 24px; border-radius: 10px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    }
+    .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.25); text-decoration: none; }
+    .btn-hero-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid rgba(255,255,255,.4); color: #fff;
+      font-weight: 700; font-size: 14px;
+      padding: 12px 24px; border-radius: 10px;
+      transition: background .2s;
+    }
+    .btn-hero-outline:hover { background: rgba(255,255,255,.1); text-decoration: none; }
+
+    .hero-visual {
+      display: flex; gap: 12px;
+    }
+    .hero-pill {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-pill-num { font-size: 1.8rem; font-weight: 900; color: #7fffdb; }
+    .hero-pill-label { color: rgba(255,255,255,.7); font-size: 11px; margin-top: 2px; }
+
+    /* ── Trust Bar ── */
+    .trust-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-inner {
+      display: flex; justify-content: space-around; flex-wrap: wrap;
+      padding: 20px 0; gap: 16px;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--muted);
+    }
+    .trust-item strong { color: var(--text); font-weight: 700; }
+    .trust-icon { font-size: 20px; }
+
+    /* ── Category Nav ── */
+    .category-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 64px; z-index: 90;
+    }
+    .category-list {
+      display: flex; gap: 0; overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .category-list::-webkit-scrollbar { display: none; }
+    .category-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 14px 20px;
+      font-size: 13px; font-weight: 600;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      white-space: nowrap; cursor: pointer;
+      transition: color .2s, border-color .2s;
+    }
+    .category-item:hover { color: var(--accent); }
+    .category-item.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── Section ── */
+    .section { padding: 56px 0; }
+    .section-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 32px;
+    }
+    .section-header h2 { font-size: 1.5rem; font-weight: 800; }
+    .section-header p  { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .see-all { font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+    .see-all:hover { text-decoration: underline; }
+
+    /* ── Product Grid ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── Product Card ── */
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+    .card-badges {
+      position: absolute; top: 12px; left: 12px;
+      display: flex; flex-direction: column; gap: 4px; z-index: 2;
+    }
+    .card-fav {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; cursor: pointer;
+      transition: background .2s;
+    }
+    .card-fav:hover { background: #fff0f0; }
+
+    .card-image {
+      height: 200px;
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px;
+      position: relative;
+    }
+    /* subtle gradient overlay */
+    .card-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.04) 100%);
+    }
+
+    .card-body { padding: 16px; }
+    .card-category { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .card-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+    .card-desc { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+
+    .card-rating { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+    .stars { color: #f5a623; font-size: 13px; letter-spacing: 1px; }
+    .rating-num { font-size: 12px; font-weight: 700; }
+    .rating-count { font-size: 12px; color: var(--muted); }
+
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .price-block { }
+    .price-original { font-size: 11px; color: var(--muted); text-decoration: line-through; }
+    .price-current { font-size: 20px; font-weight: 900; color: var(--text); }
+    .price-current small { font-size: 12px; font-weight: 600; }
+    .price-discount { font-size: 12px; font-weight: 700; color: var(--danger); }
+
+    .btn-cart {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px; font-weight: 700;
+      padding: 10px 16px; border-radius: 8px;
+      border: none; cursor: pointer;
+      font-family: var(--font);
+      transition: background .2s, transform .1s;
+      white-space: nowrap;
+    }
+    .btn-cart:hover { background: #0052cc; }
+    .btn-cart:active { transform: scale(.96); }
+
+    /* ── Featured Product (wide card) ── */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 768px) { .featured-grid { grid-template-columns: 1fr; } }
+
+    .featured-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex; gap: 0;
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .featured-card:hover { box-shadow: var(--shadow-lg); }
+    .featured-image {
+      width: 200px; flex-shrink: 0;
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 72px;
+    }
+    .featured-body { padding: 24px; flex: 1; }
+    .featured-body h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+    .featured-body p  { font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+    .featured-points { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .point { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+    .point-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); flex-shrink: 0; }
+
+    /* ── Set / Bundle Card ── */
+    .bundle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .bundle-card {
+      background: linear-gradient(135deg, #f0f7ff, #e8f4ff);
+      border: 1.5px solid #c5deff;
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: box-shadow .2s;
+    }
+    .bundle-card:hover { box-shadow: var(--shadow-lg); }
+    .bundle-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .bundle-icon { font-size: 36px; }
+    .bundle-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .bundle-card p  { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .bundle-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .bundle-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--white); border-radius: 8px;
+      padding: 10px 14px; font-size: 13px;
+    }
+    .bundle-item-name { display: flex; align-items: center; gap: 8px; }
+    .bundle-item-price { font-weight: 700; color: var(--muted); text-decoration: line-through; font-size: 12px; }
+    .bundle-footer { display: flex; align-items: center; justify-content: space-between; }
+    .bundle-total { }
+    .bundle-total-label { font-size: 11px; color: var(--muted); }
+    .bundle-total-price { font-size: 22px; font-weight: 900; color: var(--accent); }
+    .bundle-save { font-size: 12px; font-weight: 700; color: var(--danger); }
+    .btn-bundle {
+      background: var(--accent);
+      color: #fff; font-weight: 700; font-size: 13px;
+      padding: 10px 20px; border-radius: 8px;
+      border: none; cursor: pointer;
+      font-family: var(--font); transition: background .2s;
+    }
+    .btn-bundle:hover { background: #0052cc; }
+
+    /* ── Review Section ── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .reviewer-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+    .reviewer-name { font-size: 14px; font-weight: 700; }
+    .reviewer-date { font-size: 11px; color: var(--muted); }
+    .review-product { font-size: 11px; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+    .review-text { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ── Promo Banner ── */
+    .promo-banner {
+      background: linear-gradient(135deg, #00b894, #00cec9);
+      border-radius: var(--radius);
+      padding: 32px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .promo-text { color: #fff; }
+    .promo-text h3 { font-size: 1.4rem; font-weight: 900; margin-bottom: 6px; }
+    .promo-text p  { font-size: 14px; opacity: .85; }
+    .btn-promo {
+      background: #fff; color: var(--accent2);
+      font-weight: 800; font-size: 14px;
+      padding: 12px 28px; border-radius: 10px;
+      border: none; cursor: pointer; white-space: nowrap;
+      font-family: var(--font); transition: opacity .2s;
+    }
+    .btn-promo:hover { opacity: .9; }
+
+    /* ── Filter/Sort Bar ── */
+    .filter-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .filter-label { font-size: 13px; font-weight: 700; color: var(--muted); }
+    .filter-chip {
+      padding: 6px 14px; border-radius: 99px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      color: var(--text); transition: all .15s;
+      font-family: var(--font);
+    }
+    .filter-chip:hover, .filter-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .sort-select {
+      margin-left: auto;
+      padding: 7px 14px; border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--white); color: var(--text);
+      font-size: 12px; font-weight: 600;
+      cursor: pointer; outline: none;
+      font-family: var(--font);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #0a1628; color: rgba(255,255,255,.7);
+      margin-top: 80px;
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding: 60px 0 40px;
+    }
+    @media (max-width: 768px) { .footer-main { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-main { grid-template-columns: 1fr; } }
+    .footer-brand p { font-size: 13px; margin-top: 12px; line-height: 1.7; max-width: 260px; }
+    .footer-brand .logo-text { color: #fff; }
+    .footer-col h4 { color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { color: rgba(255,255,255,.6); font-size: 13px; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+      font-size: 12px;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .5s ease both; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      background: #1a2233; color: #fff;
+      padding: 14px 20px; border-radius: 10px;
+      font-size: 14px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+      transform: translateY(100px); opacity: 0;
+      transition: transform .3s, opacity .3s;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container nav-inner">
+    <div class="logo">
+      <div class="logo-icon">🧹</div>
+      <span class="logo-text">Clean<span>Pro</span></span>
+    </div>
+
+    <div class="nav-search">
+      <span>🔍</span>
+      <input type="text" placeholder="商品を検索する（例：カビ取り、モップ）" />
+    </div>
+
+    <div class="nav-actions">
+      <div class="nav-icon-btn" title="お気に入り">❤️</div>
+      <div class="nav-icon-btn" title="カート" onclick="showToast('カートを開きます')">
+        🛒
+        <span class="cart-count" id="cartCount">3</span>
+      </div>
+      <button class="btn-login">ログイン</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero-banner">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">プロ仕様 × 家庭でも使える</div>
+        <h1>ピカピカを、<em>もっと簡単に。</em></h1>
+        <p>業務用クオリティの洗剤・道具をご家庭へ。プロのハウスクリーナーが実際に使う商品だけを厳選してお届けします。</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn-hero">🛒 今すぐ購入</a>
+          <a href="#sets" class="btn-hero-outline">📦 お得なセット</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-pill">
+          <div class="hero-pill-num">2,400+</div>
+          <div class="hero-pill-label">商品ラインナップ</div>
+        </div>
+        <div class="hero-pill">
+          <div class="hero-pill-num">★4.8</div>
+          <div class="hero-pill-label">平均レビュー</div>
+        </div>
+        <div class="hero-pill">
+          <div class="hero-pill-num">翌日</div>
+          <div class="hero-pill-label">配送対応</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Trust Bar ── -->
+<div class="trust-bar">
+  <div class="container trust-inner">
+    <div class="trust-item"><span class="trust-icon">🚚</span><span><strong>3,980円以上</strong>で送料無料</span></div>
+    <div class="trust-item"><span class="trust-icon">↩️</span><span><strong>30日間</strong>返品・返金保証</span></div>
+    <div class="trust-item"><span class="trust-icon">🔒</span><span><strong>SSL暗号化</strong>で安全決済</span></div>
+    <div class="trust-item"><span class="trust-icon">📞</span><span><strong>平日10〜18時</strong>サポート対応</span></div>
+    <div class="trust-item"><span class="trust-icon">✅</span><span>プロ仕様商品<strong>品質保証</strong></span></div>
+  </div>
+</div>
+
+<!-- ── Category Nav ── -->
+<div class="category-nav">
+  <div class="container">
+    <div class="category-list">
+      <div class="category-item active">🏠 すべて</div>
+      <div class="category-item">🫧 洗剤・クリーナー</div>
+      <div class="category-item">🧽 スポンジ・ブラシ</div>
+      <div class="category-item">🪣 バケツ・モップ</div>
+      <div class="category-item">🪟 窓・ガラス用</div>
+      <div class="category-item">🚿 浴室・トイレ用</div>
+      <div class="category-item">🍳 キッチン用</div>
+      <div class="category-item">🛡️ 除菌・消臭</div>
+      <div class="category-item">📦 お得なセット</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── Featured Products ── -->
+<section class="section" id="featured">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>🌟 注目の商品</h2>
+        <p>プロも愛用する、今月の人気アイテム</p>
+      </div>
+      <a href="#" class="see-all">すべて見る →</a>
+    </div>
+
+    <div class="featured-grid">
+      <div class="featured-card">
+        <div class="featured-image">🧴</div>
+        <div class="featured-body">
+          <span class="badge badge-red">ベストセラー</span>
+          <h3 style="margin-top: 10px;">超強力マルチクリーナー プロ仕様 5L</h3>
+          <p>油汚れ・水垢・カビまで幅広く対応。業務用濃縮タイプで1本で約50本分の使用量。希釈することで用途に合わせて調節可能。</p>
+          <div class="featured-points">
+            <div class="point"><span class="point-dot"></span>油汚れを30秒で分解</div>
+            <div class="point"><span class="point-dot"></span>pH調整済み・素材を傷めない</div>
+            <div class="point"><span class="point-dot"></span>無香料・無着色・環境配慮型</div>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="price-original">¥6,800</div>
+              <div class="price-current">¥<strong>4,980</strong><small> 税込</small></div>
+              <div class="price-discount">▼ 27% OFF</div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 カートへ</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="featured-card">
+        <div class="featured-image">🪣</div>
+        <div class="featured-body">
+          <span class="badge badge-orange">新入荷</span>
+          <h3 style="margin-top: 10px;">伸縮式フラットモップ 360°回転ヘッド</h3>
+          <p>腰への負担を大幅に軽減する人間工学設計。床面に密着するマイクロファイバーパッドで、乾拭き・水拭きどちらも対応。</p>
+          <div class="featured-points">
+            <div class="point"><span class="point-dot"></span>柄の長さ70〜130cmに調節可能</div>
+            <div class="point"><span class="point-dot"></span>パッドは洗濯機で繰り返し洗える</div>
+            <div class="point"><span class="point-dot"></span>フローリング・タイル・畳に対応</div>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="price-original">¥4,500</div>
+              <div class="price-current">¥<strong>2,980</strong><small> 税込</small></div>
+              <div class="price-discount">▼ 34% OFF</div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 カートへ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── All Products ── -->
+<section class="section" id="products" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>🛍️ 商品一覧</h2>
+        <p>全カテゴリのプロ仕様クリーニング用品</p>
+      </div>
+      <a href="#" class="see-all">すべて見る →</a>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <span class="filter-label">絞り込み：</span>
+      <button class="filter-chip active">すべて</button>
+      <button class="filter-chip">洗剤</button>
+      <button class="filter-chip">道具</button>
+      <button class="filter-chip">除菌</button>
+      <button class="filter-chip">セール</button>
+      <select class="sort-select">
+        <option>人気順</option>
+        <option>価格が安い順</option>
+        <option>価格が高い順</option>
+        <option>新着順</option>
+        <option>レビューが高い順</option>
+      </select>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- 1 -->
+      <div class="product-card">
+        <div class="card-badges">
+          <span class="badge badge-red">セール</span>
+        </div>
+        <div class="card-fav">🤍</div>
+        <div class="card-image">🧽</div>
+        <div class="card-body">
+          <div class="card-category">スポンジ・ブラシ</div>
+          <div class="card-name">プロ用メラミンスポンジ 100個入り</div>
+          <div class="card-desc">激落ちくん類似のプロ仕様。水だけで頑固な汚れを落とす超極細繊維。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">4.9</span>
+            <span class="rating-count">(423件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-original">¥2,200</div>
+              <div class="price-current">¥<strong>1,480</strong><small>税込</small></div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="product-card">
+        <div class="card-badges">
+          <span class="badge badge-green">エコ認定</span>
+        </div>
+        <div class="card-fav">🤍</div>
+        <div class="card-image">🫧</div>
+        <div class="card-body">
+          <div class="card-category">洗剤・クリーナー</div>
+          <div class="card-name">重曹 & クエン酸 セット 各1kg</div>
+          <div class="card-desc">食品グレードの重曹とクエン酸のセット。水垢・油汚れの両方に対応。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-num">4.6</span>
+            <span class="rating-count">(218件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-current">¥<strong>1,280</strong><small>税込</small></div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="product-card">
+        <div class="card-badges">
+          <span class="badge">人気No.1</span>
+        </div>
+        <div class="card-fav">❤️</div>
+        <div class="card-image">🚿</div>
+        <div class="card-body">
+          <div class="card-category">浴室・トイレ用</div>
+          <div class="card-name">カビ取りジェル 強力タイプ 300ml</div>
+          <div class="card-desc">ジェル状で垂直面にも密着。5分でカビ根本から除去。塩素系・刺激臭軽減。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">4.8</span>
+            <span class="rating-count">(587件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-original">¥1,500</div>
+              <div class="price-current">¥<strong>980</strong><small>税込</small></div>
+              <div class="price-discount">▼ 35% OFF</div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="product-card">
+        <div class="card-badges">
+          <span class="badge badge-orange">新入荷</span>
+        </div>
+        <div class="card-fav">🤍</div>
+        <div class="card-image">🪟</div>
+        <div class="card-body">
+          <div class="card-category">窓・ガラス用</div>
+          <div class="card-name">ガラス用スクイージー プロ35cm</div>
+          <div class="card-desc">ゴムブレードが窓に密着しスジなし仕上げ。柄の角度調整可能。窓拭きが圧倒的に早くなる。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-num">4.5</span>
+            <span class="rating-count">(142件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-current">¥<strong>2,480</strong><small>税込</small></div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="product-card">
+        <div class="card-fav">🤍</div>
+        <div class="card-image">🍳</div>
+        <div class="card-body">
+          <div class="card-category">キッチン用</div>
+          <div class="card-name">頑固な焦げ付き落とし パワージェル 400ml</div>
+          <div class="card-desc">コンロ・フライパンの焦げ付きを10分で溶かす。アルカリ性強力タイプ。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">4.7</span>
+            <span class="rating-count">(301件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-original">¥1,800</div>
+              <div class="price-current">¥<strong>1,320</strong><small>税込</small></div>
+              <div class="price-discount">▼ 27% OFF</div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="product-card">
+        <div class="card-badges">
+          <span class="badge badge-green">除菌99.9%</span>
+        </div>
+        <div class="card-fav">🤍</div>
+        <div class="card-image">🛡️</div>
+        <div class="card-body">
+          <div class="card-category">除菌・消臭</div>
+          <div class="card-name">次亜塩素酸水 500ppm 詰替え5L</div>
+          <div class="card-desc">食中毒菌・ウイルス・カビに効果的。子供やペットにも安心の電解水。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-num">4.4</span>
+            <span class="rating-count">(195件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-current">¥<strong>3,480</strong><small>税込</small></div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="product-card">
+        <div class="card-badges">
+          <span class="badge badge-red">在庫わずか</span>
+        </div>
+        <div class="card-fav">🤍</div>
+        <div class="card-image">🧹</div>
+        <div class="card-body">
+          <div class="card-category">掃除道具</div>
+          <div class="card-name">静電気ダスター 超極細繊維 60cm</div>
+          <div class="card-desc">ブラインド・棚・エアコンのフィンにも届く。ホコリを吸着して舞い上がらない。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">4.9</span>
+            <span class="rating-count">(88件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-current">¥<strong>1,780</strong><small>税込</small></div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="product-card">
+        <div class="card-fav">🤍</div>
+        <div class="card-image">🪣</div>
+        <div class="card-body">
+          <div class="card-category">バケツ・モップ</div>
+          <div class="card-name">折り畳み式バケツ 12L シリコン製</div>
+          <div class="card-desc">使わない時はコンパクトに折り畳めるシリコン素材。耐荷重10kg。収納スペース不要。</div>
+          <div class="card-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-num">4.3</span>
+            <span class="rating-count">(156件)</span>
+          </div>
+          <div class="card-footer">
+            <div class="price-block">
+              <div class="price-current">¥<strong>2,180</strong><small>税込</small></div>
+            </div>
+            <button class="btn-cart" onclick="addToCart(this)">🛒 追加</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Promo Banner ── -->
+<section class="section" style="padding: 40px 0;">
+  <div class="container">
+    <div class="promo-banner">
+      <div class="promo-text">
+        <h3>🎉 期間限定！ まとめ買いで最大20%OFF</h3>
+        <p>3点以上購入で10%OFF、5点以上で20%OFFが自動適用されます。セール商品も対象！</p>
+      </div>
+      <button class="btn-promo">対象商品を見る →</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Bundle Sets ── -->
+<section class="section" id="sets" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>📦 お得なセット商品</h2>
+        <p>よく一緒に使われる商品をまとめてお得に</p>
+      </div>
+    </div>
+
+    <div class="bundle-grid">
+
+      <div class="bundle-card">
+        <div class="bundle-header">
+          <div>
+            <h3>浴室まるごとクリーニングセット</h3>
+            <p>カビ・水垢・石鹸カスを一掃する最強セット</p>
+          </div>
+          <div class="bundle-icon">🚿</div>
+        </div>
+        <div class="bundle-items">
+          <div class="bundle-item">
+            <div class="bundle-item-name">🫧 カビ取りジェル強力タイプ</div>
+            <div class="bundle-item-price">¥980</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🧽 バス用ブラシ 硬め</div>
+            <div class="bundle-item-price">¥1,280</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🧴 水垢除去クリーナー 500ml</div>
+            <div class="bundle-item-price">¥1,200</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🪣 洗面器 & スポンジホルダー</div>
+            <div class="bundle-item-price">¥780</div>
+          </div>
+        </div>
+        <div class="bundle-footer">
+          <div class="bundle-total">
+            <div class="bundle-total-label">合計（単品購入時）¥4,240 →</div>
+            <div class="bundle-total-price">¥3,280</div>
+            <div class="bundle-save">▼ ¥960 お得（23%OFF）</div>
+          </div>
+          <button class="btn-bundle" onclick="addToCart(this)">セットで買う</button>
+        </div>
+      </div>
+
+      <div class="bundle-card" style="background: linear-gradient(135deg, #f0fff6, #e0faee); border-color: #a3e9c3;">
+        <div class="bundle-header">
+          <div>
+            <h3>キッチン徹底掃除セット</h3>
+            <p>コンロ・シンク・換気扇の油汚れに特化</p>
+          </div>
+          <div class="bundle-icon">🍳</div>
+        </div>
+        <div class="bundle-items">
+          <div class="bundle-item">
+            <div class="bundle-item-name">🧴 強力油脂分解スプレー</div>
+            <div class="bundle-item-price">¥1,480</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🧽 メラミンスポンジ 20個</div>
+            <div class="bundle-item-price">¥580</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🍳 焦げ付き落としジェル</div>
+            <div class="bundle-item-price">¥1,320</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🪥 排水口クリーナーブラシ</div>
+            <div class="bundle-item-price">¥680</div>
+          </div>
+        </div>
+        <div class="bundle-footer">
+          <div class="bundle-total">
+            <div class="bundle-total-label">合計（単品購入時）¥4,060 →</div>
+            <div class="bundle-total-price">¥2,980</div>
+            <div class="bundle-save">▼ ¥1,080 お得（27%OFF）</div>
+          </div>
+          <button class="btn-bundle" onclick="addToCart(this)">セットで買う</button>
+        </div>
+      </div>
+
+      <div class="bundle-card" style="background: linear-gradient(135deg, #fff9f0, #fff0dc); border-color: #ffd59a;">
+        <div class="bundle-header">
+          <div>
+            <h3>窓・フローリング 全室ケアセット</h3>
+            <p>ガラス窓から床までツヤツヤに仕上げる</p>
+          </div>
+          <div class="bundle-icon">🪟</div>
+        </div>
+        <div class="bundle-items">
+          <div class="bundle-item">
+            <div class="bundle-item-name">🪟 ガラスクリーナー 詰替用</div>
+            <div class="bundle-item-price">¥880</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🪣 伸縮モップ マイクロファイバー</div>
+            <div class="bundle-item-price">¥2,980</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🧴 フローリングワックス 1L</div>
+            <div class="bundle-item-price">¥1,580</div>
+          </div>
+          <div class="bundle-item">
+            <div class="bundle-item-name">🧹 静電気ダスター</div>
+            <div class="bundle-item-price">¥1,780</div>
+          </div>
+        </div>
+        <div class="bundle-footer">
+          <div class="bundle-total">
+            <div class="bundle-total-label">合計（単品購入時）¥7,220 →</div>
+            <div class="bundle-total-price">¥5,480</div>
+            <div class="bundle-save">▼ ¥1,740 お得（24%OFF）</div>
+          </div>
+          <button class="btn-bundle" onclick="addToCart(this)">セットで買う</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Reviews ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>💬 お客様の声</h2>
+        <p>実際に使ったプロ・一般ユーザーのリアルな声</p>
+      </div>
+      <a href="#" class="see-all">全件見る →</a>
+    </div>
+
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-avatar" style="background: linear-gradient(135deg, #6c63ff, #a78bfa);">田</div>
+          <div>
+            <div class="reviewer-name">田中 美香 さん</div>
+            <div class="reviewer-date">2026年2月15日</div>
+          </div>
+          <div class="stars" style="margin-left:auto;">★★★★★</div>
+        </div>
+        <div class="review-product">📦 カビ取りジェル 強力タイプ</div>
+        <div class="review-text">お風呂のゴムパッキンに生えた黒カビが、本当に5分で消えました！今まで何を使っても取れなかったのに驚きです。においも思ったより少なく、子供がいても安心して使えました。</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-avatar" style="background: linear-gradient(135deg, #00b894, #55efc4);">鈴</div>
+          <div>
+            <div class="reviewer-name">鈴木 健太 さん</div>
+            <div class="reviewer-date">2026年2月10日</div>
+          </div>
+          <div class="stars" style="margin-left:auto;">★★★★★</div>
+        </div>
+        <div class="review-product">📦 伸縮式フラットモップ</div>
+        <div class="review-text">ハウスクリーニング業者として使っています。以前使っていたものと比べて圧倒的に取り回しがよく、腰の疲れが激減。パッドの吸水力も最高で仕事が速くなりました。リピート確定！</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-avatar" style="background: linear-gradient(135deg, #fd7c3b, #ffeaa7);">山</div>
+          <div>
+            <div class="reviewer-name">山本 さゆり さん</div>
+            <div class="reviewer-date">2026年1月28日</div>
+          </div>
+          <div class="stars" style="margin-left:auto;">★★★★☆</div>
+        </div>
+        <div class="review-product">📦 浴室まるごとクリーニングセット</div>
+        <div class="review-text">セットがとてもお得でまとめて買いました。全部の商品がプロクオリティで、特に水垢クリーナーが感動もの。次回はキッチンセットも試してみます。梱包も丁寧で好印象でした。</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">🧹</div>
+          <span class="logo-text" style="color:#fff;">Clean<span>Pro</span></span>
+        </div>
+        <p>プロのハウスクリーナーが実際に使う商品だけを厳選してお届け。きれいな空間づくりを、もっと手軽に。</p>
+      </div>
+      <div class="footer-col">
+        <h4>商品カテゴリ</h4>
+        <ul>
+          <li><a href="#">洗剤・クリーナー</a></li>
+          <li><a href="#">スポンジ・ブラシ</a></li>
+          <li><a href="#">バケツ・モップ</a></li>
+          <li><a href="#">窓・ガラス用</a></li>
+          <li><a href="#">除菌・消臭</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ご購入について</h4>
+        <ul>
+          <li><a href="#">送料について</a></li>
+          <li><a href="#">返品・交換</a></li>
+          <li><a href="#">お支払い方法</a></li>
+          <li><a href="#">領収書発行</a></li>
+          <li><a href="#">法人向け見積</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="#">よくある質問</a></li>
+          <li><a href="#">お問い合わせ</a></li>
+          <li><a href="#">使い方ガイド</a></li>
+          <li><a href="#">プロ向けプラン</a></li>
+          <li><a href="#">会社概要</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CleanPro Inc. All rights reserved.</span>
+      <div style="display:flex; gap:20px;">
+        <a href="#" style="color:rgba(255,255,255,.5);">プライバシーポリシー</a>
+        <a href="#" style="color:rgba(255,255,255,.5);">利用規約</a>
+        <a href="#" style="color:rgba(255,255,255,.5);">特定商取引法</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Toast ── -->
+<div id="toast">✅ カートに追加しました！</div>
+
+<script>
+  /* Cart counter */
+  let cartCount = 3;
+
+  function addToCart(btn) {
+    cartCount++;
+    document.getElementById('cartCount').textContent = cartCount;
+    showToast('カートに追加しました！');
+    btn.textContent = '✅ 追加済み';
+    btn.style.background = '#00b894';
+    setTimeout(() => {
+      btn.innerHTML = btn.textContent.includes('セット') ? 'セットで買う' : '🛒 追加';
+      btn.style.background = '';
+    }, 2000);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = '✅ ' + msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  /* Category filter chips */
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+
+  /* Category nav */
+  document.querySelectorAll('.category-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.category-item').forEach(c => c.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  /* Favourite toggle */
+  document.querySelectorAll('.card-fav').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+    });
+  });
+
+  /* Scroll-in animation */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .bundle-card, .review-card, .featured-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .45s ease, transform .45s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
