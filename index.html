@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Coding — Learn to Build with Artificial Intelligence</title>
+  <style>
+    /* ── Reset & Tokens ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0b14;
+      --surface:   #11131f;
+      --surface2:  #181b2e;
+      --border:    rgba(255,255,255,.07);
+      --accent:    #6c63ff;
+      --accent2:   #00d4ff;
+      --accent3:   #ff6b6b;
+      --green:     #43e97b;
+      --text:      #e8eaf6;
+      --muted:     #7b7f9e;
+      --radius:    14px;
+      --font:      'Inter', system-ui, sans-serif;
+      --mono:      'Fira Code', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── Typography ── */
+    h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.02em; }
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Utility ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .badge {
+      display: inline-block;
+      background: rgba(108,99,255,.15);
+      border: 1px solid rgba(108,99,255,.4);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+    .tag {
+      display: inline-block;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 99px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px) saturate(180%);
+      background: rgba(10,11,20,.75);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-size: 18px; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: opacity .2s !important;
+    }
+    .nav-cta:hover { opacity: .85; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 40%, rgba(108,99,255,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(0,212,255,.12) 0%, transparent 70%);
+    }
+    .grid-lines {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-eyebrow { margin-bottom: 20px; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { font-size: 1.15rem; color: var(--muted); max-width: 560px; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      color: #fff;
+      font-weight: 600; font-size: 15px;
+      padding: 14px 28px; border-radius: 10px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 30px rgba(108,99,255,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(108,99,255,.5); text-decoration: none; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600; font-size: 15px;
+      padding: 14px 28px; border-radius: 10px;
+      transition: background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.10); text-decoration: none; }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex; gap: 48px; flex-wrap: wrap;
+      margin-top: 56px; padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--text); }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* ── Section ── */
+    section { padding: 96px 0; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin: 12px 0; }
+    .section-header p { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+
+    /* ── What is AI Coding ── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .intro-grid { grid-template-columns: 1fr; } }
+    .intro-text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 16px; }
+    .intro-text p { color: var(--muted); margin-bottom: 16px; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px;
+    }
+    .feature-list .icon {
+      width: 24px; height: 24px; flex-shrink: 0;
+      background: rgba(108,99,255,.15);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+
+    /* ── Code Block ── */
+    .code-window {
+      background: #0d0f1a;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .code-titlebar {
+      background: #161929;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .code-filename { font-size: 12px; color: var(--muted); margin-left: 8px; font-family: var(--mono); }
+    .code-body {
+      padding: 24px;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+    .code-body .comment { color: #546e7a; }
+    .code-body .keyword { color: #c792ea; }
+    .code-body .string  { color: #c3e88d; }
+    .code-body .fn      { color: #82aaff; }
+    .code-body .num     { color: #f78c6c; }
+    .code-body .var     { color: var(--text); }
+    .code-body .output  { color: var(--green); }
+    .code-body .prompt  { color: var(--accent2); }
+
+    /* ── Concepts Grid ── */
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .concept-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(108,99,255,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .concept-card:hover { border-color: rgba(108,99,255,.5); transform: translateY(-4px); }
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .concept-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .concept-card p  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .concept-card .tags { margin-top: 16px; display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* ── Curriculum ── */
+    .curriculum { background: var(--surface); }
+    .curriculum-list { display: flex; flex-direction: column; gap: 0; }
+    .lesson {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 20px;
+      align-items: start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+    .lesson:last-child { border-bottom: none; }
+    .lesson-num {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(108,99,255,.12);
+      border: 1px solid rgba(108,99,255,.25);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .lesson-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .lesson-desc  { font-size: 13px; color: var(--muted); }
+    .lesson-meta  { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .lesson-time  { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .pill {
+      font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 99px;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .pill-beginner { background: rgba(67,233,123,.12); color: var(--green); border: 1px solid rgba(67,233,123,.3); }
+    .pill-intermediate { background: rgba(0,212,255,.12); color: var(--accent2); border: 1px solid rgba(0,212,255,.3); }
+    .pill-advanced { background: rgba(255,107,107,.12); color: var(--accent3); border: 1px solid rgba(255,107,107,.3); }
+
+    /* ── Prompt Engineering ── */
+    .prompt-section { }
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) { .prompt-grid { grid-template-columns: 1fr; } }
+    .prompt-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .prompt-label {
+      padding: 12px 16px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .bad-label  { color: var(--accent3); background: rgba(255,107,107,.07); }
+    .good-label { color: var(--green);   background: rgba(67,233,123,.07); }
+    .prompt-body { padding: 20px; font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .prompt-body strong { color: var(--text); }
+
+    /* ── Tools ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: border-color .2s, transform .2s;
+    }
+    .tool-card:hover { border-color: rgba(108,99,255,.4); transform: translateY(-2px); }
+    .tool-logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 800;
+    }
+    .tool-name  { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .tool-desc  { font-size: 13px; color: var(--muted); }
+
+    /* ── Workflow ── */
+    .workflow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .workflow-step {
+      text-align: center;
+      padding: 32px 20px;
+      position: relative;
+    }
+    .workflow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -10px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); font-size: 20px;
+    }
+    @media (max-width: 600px) {
+      .workflow-steps { grid-template-columns: 1fr; }
+      .workflow-step::after { display: none; }
+    }
+    .step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800;
+      margin: 0 auto 16px;
+      box-shadow: 0 0 20px rgba(108,99,255,.4);
+    }
+    .workflow-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .workflow-step p  { font-size: 13px; color: var(--muted); }
+
+    /* ── Callout ── */
+    .callout {
+      background: linear-gradient(135deg, rgba(108,99,255,.12), rgba(0,212,255,.08));
+      border: 1px solid rgba(108,99,255,.25);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .callout-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+    .callout h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .callout p  { font-size: 14px; color: var(--muted); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 96px 0;
+    }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 16px; }
+    .cta-section p  { color: var(--muted); font-size: 1.05rem; margin-bottom: 36px; }
+    .cta-glow {
+      display: inline-block;
+      border-radius: 12px;
+      box-shadow: 0 0 60px rgba(108,99,255,.35);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); font-size: 14px; }
+    .footer-links a:hover { color: var(--text); }
+    footer p { font-size: 13px; color: var(--muted); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .6s ease both; }
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .2s; }
+    .delay-3 { animation-delay: .3s; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 99px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container nav-inner">
+    <span class="logo">⚡ AI Coding</span>
+    <div class="nav-links">
+      <a href="#concepts">Concepts</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#prompting">Prompting</a>
+      <a href="#tools">Tools</a>
+      <a href="#start" class="nav-cta">Start Learning</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow fade-up">
+        <span class="badge">Free Curriculum · 2026 Edition</span>
+      </div>
+      <h1 class="fade-up delay-1">Build Faster with <span>Artificial Intelligence</span></h1>
+      <p class="fade-up delay-2">
+        Learn how to harness AI tools, write effective prompts, and integrate
+        large language models into your development workflow — from zero to production.
+      </p>
+      <div class="hero-actions fade-up delay-3">
+        <a href="#curriculum" class="btn-primary">
+          <span>🚀</span> Start the Course
+        </a>
+        <a href="#concepts" class="btn-secondary">
+          <span>📖</span> Browse Concepts
+        </a>
+      </div>
+
+      <div class="stats fade-up delay-3">
+        <div class="stat-item">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Lessons</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6h</div>
+          <div class="stat-label">of Content</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Free & Open</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Skill Levels</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── What is AI Coding ── -->
+<section id="intro" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-text">
+        <span class="badge">What is AI Coding?</span>
+        <h2 style="margin-top:12px;">Using AI as your copilot to write, debug &amp; ship code</h2>
+        <p>
+          AI coding is the practice of using large language models (LLMs) and AI-powered
+          tools to assist at every stage of software development — from ideation to deployment.
+        </p>
+        <p>
+          It's not about replacing developers. It's about amplifying your capabilities: 
+          writing boilerplate in seconds, debugging with conversational explanations,
+          and exploring solutions you might not have thought of.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="icon">✨</span>
+            <span>Generate, refactor, and explain code in natural language</span>
+          </li>
+          <li>
+            <span class="icon">🐛</span>
+            <span>Diagnose bugs by describing symptoms to an AI assistant</span>
+          </li>
+          <li>
+            <span class="icon">📚</span>
+            <span>Learn new frameworks and languages 10× faster with AI tutoring</span>
+          </li>
+          <li>
+            <span class="icon">🏗️</span>
+            <span>Architect full-stack applications with AI-guided scaffolding</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Code window -->
+      <div class="code-window">
+        <div class="code-titlebar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span class="code-filename">ai_assistant.py</span>
+        </div>
+        <div class="code-body"><pre><span class="comment"># AI-assisted development in action</span>
+<span class="keyword">from</span> <span class="fn">openai</span> <span class="keyword">import</span> OpenAI
+
+client = OpenAI()
+
+<span class="keyword">def</span> <span class="fn">ask_ai</span>(question: <span class="var">str</span>) -> <span class="var">str</span>:
+    <span class="string">"""Send a question and get AI-generated code."""</span>
+    response = client.chat.completions.create(
+        model=<span class="string">"gpt-4o"</span>,
+        messages=[
+            {<span class="string">"role"</span>: <span class="string">"system"</span>,
+             <span class="string">"content"</span>: <span class="string">"You are an expert developer."</span>},
+            {<span class="string">"role"</span>: <span class="string">"user"</span>,
+             <span class="string">"content"</span>: question}
+        ]
+    )
+    <span class="keyword">return</span> response.choices[<span class="num">0</span>].message.content
+
+<span class="comment"># Ask AI to write a function for you</span>
+code = <span class="fn">ask_ai</span>(<span class="string">"Write a binary search in Python"</span>)
+<span class="fn">print</span>(code)
+
+<span class="output"># → AI returns a complete, documented implementation</span>
+<span class="output"># → You review, test, and ship it in minutes</span></pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Core Concepts ── -->
+<section id="concepts">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge">Core Concepts</span>
+      <h2>Everything you need to understand AI coding</h2>
+      <p>Master these fundamental ideas to unlock the full potential of AI in your workflow.</p>
+    </div>
+
+    <div class="concepts-grid">
+
+      <div class="concept-card">
+        <div class="card-icon" style="background: rgba(108,99,255,.15);">🧠</div>
+        <h3>Large Language Models (LLMs)</h3>
+        <p>Neural networks trained on vast code corpora that can understand and generate programming languages. They are the engine behind tools like GitHub Copilot, Cursor, and ChatGPT.</p>
+        <div class="tags">
+          <span class="tag">GPT-4o</span>
+          <span class="tag">Claude 3.5</span>
+          <span class="tag">Gemini</span>
+        </div>
+      </div>
+
+      <div class="concept-card">
+        <div class="card-icon" style="background: rgba(0,212,255,.12);">💬</div>
+        <h3>Prompt Engineering</h3>
+        <p>The art of crafting precise, context-rich instructions that guide an AI model toward the exact output you need. Great prompts dramatically improve code quality.</p>
+        <div class="tags">
+          <span class="tag">Chain-of-thought</span>
+          <span class="tag">Few-shot</span>
+          <span class="tag">System prompts</span>
+        </div>
+      </div>
+
+      <div class="concept-card">
+        <div class="card-icon" style="background: rgba(67,233,123,.12);">🔌</div>
+        <h3>API Integration</h3>
+        <p>Connect your applications to AI services via REST APIs. Send requests with your prompt and receive structured responses you can parse, display, or use in business logic.</p>
+        <div class="tags">
+          <span class="tag">OpenAI API</span>
+          <span class="tag">REST</span>
+          <span class="tag">Streaming</span>
+        </div>
+      </div>
+
+      <div class="concept-card">
+        <div class="card-icon" style="background: rgba(255,107,107,.12);">📦</div>
+        <h3>RAG — Retrieval Augmented Generation</h3>
+        <p>Combine AI with your own data. Embed documents into a vector database, retrieve relevant chunks at query time, and inject them into the LLM context for accurate, grounded responses.</p>
+        <div class="tags">
+          <span class="tag">Embeddings</span>
+          <span class="tag">Pinecone</span>
+          <span class="tag">ChromaDB</span>
+        </div>
+      </div>
+
+      <div class="concept-card">
+        <div class="card-icon" style="background: rgba(254,188,46,.12);">🤖</div>
+        <h3>AI Agents</h3>
+        <p>Autonomous AI systems that can plan, use tools, browse the web, write and execute code, and iteratively complete complex multi-step tasks without constant human intervention.</p>
+        <div class="tags">
+          <span class="tag">LangChain</span>
+          <span class="tag">AutoGen</span>
+          <span class="tag">Tool use</span>
+        </div>
+      </div>
+
+      <div class="concept-card">
+        <div class="card-icon" style="background: rgba(108,99,255,.15);">🎛️</div>
+        <h3>Fine-tuning</h3>
+        <p>Adapt a pre-trained model to your specific domain by training it further on curated examples. Useful for specialized tasks like generating code in a proprietary style or framework.</p>
+        <div class="tags">
+          <span class="tag">LoRA</span>
+          <span class="tag">PEFT</span>
+          <span class="tag">Hugging Face</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Curriculum ── -->
+<section id="curriculum" class="curriculum">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge">Curriculum</span>
+      <h2>12 lessons to go from zero to AI engineer</h2>
+      <p>A structured path covering fundamentals through advanced agent systems.</p>
+    </div>
+
+    <div class="curriculum-list">
+
+      <div class="lesson">
+        <div class="lesson-num">01</div>
+        <div>
+          <div class="lesson-title">What is Generative AI &amp; How Does It Work?</div>
+          <div class="lesson-desc">Tokens, transformer architecture, and the intuition behind how LLMs predict code.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 25 min</span>
+          <span class="pill pill-beginner">Beginner</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">02</div>
+        <div>
+          <div class="lesson-title">Setting Up Your AI Development Environment</div>
+          <div class="lesson-desc">Install VS Code, Cursor, Python, and configure your OpenAI API key securely.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 20 min</span>
+          <span class="pill pill-beginner">Beginner</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">03</div>
+        <div>
+          <div class="lesson-title">Prompt Engineering for Developers</div>
+          <div class="lesson-desc">Roles, system prompts, few-shot examples, chain-of-thought, and structured output techniques.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 40 min</span>
+          <span class="pill pill-beginner">Beginner</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">04</div>
+        <div>
+          <div class="lesson-title">Making Your First API Call</div>
+          <div class="lesson-desc">Use the OpenAI Python SDK to send completions and chat requests, handle streaming responses.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 35 min</span>
+          <span class="pill pill-beginner">Beginner</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">05</div>
+        <div>
+          <div class="lesson-title">AI-Powered Code Generation Patterns</div>
+          <div class="lesson-desc">Scaffold functions, write tests, generate boilerplate, and auto-document code with AI.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 45 min</span>
+          <span class="pill pill-intermediate">Intermediate</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">06</div>
+        <div>
+          <div class="lesson-title">Debugging with AI Assistance</div>
+          <div class="lesson-desc">Paste error messages, describe symptoms, and let AI trace root causes and suggest fixes.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 30 min</span>
+          <span class="pill pill-intermediate">Intermediate</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">07</div>
+        <div>
+          <div class="lesson-title">Building a Chat Interface from Scratch</div>
+          <div class="lesson-desc">Create a full-stack chat app with a Python backend and React frontend, powered by an LLM.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 60 min</span>
+          <span class="pill pill-intermediate">Intermediate</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">08</div>
+        <div>
+          <div class="lesson-title">Embeddings &amp; Semantic Search</div>
+          <div class="lesson-desc">Convert text to vectors, store in a vector DB, and build similarity search over your own content.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 50 min</span>
+          <span class="pill pill-intermediate">Intermediate</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">09</div>
+        <div>
+          <div class="lesson-title">RAG — Build a Q&amp;A Bot on Your Docs</div>
+          <div class="lesson-desc">Chunk, embed, retrieve, and generate — build an end-to-end document Q&amp;A pipeline.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 55 min</span>
+          <span class="pill pill-advanced">Advanced</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">10</div>
+        <div>
+          <div class="lesson-title">Function Calling &amp; Tool Use</div>
+          <div class="lesson-desc">Give your LLM the ability to call external APIs, query databases, and execute code safely.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 45 min</span>
+          <span class="pill pill-advanced">Advanced</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">11</div>
+        <div>
+          <div class="lesson-title">Building Autonomous AI Agents</div>
+          <div class="lesson-desc">Design agents with memory, planning, and multi-step tool use using LangGraph or AutoGen.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 70 min</span>
+          <span class="pill pill-advanced">Advanced</span>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <div class="lesson-num">12</div>
+        <div>
+          <div class="lesson-title">Deploying AI Applications to Production</div>
+          <div class="lesson-desc">Rate limiting, cost optimization, monitoring, observability, and responsible AI practices.</div>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-time">⏱ 40 min</span>
+          <span class="pill pill-advanced">Advanced</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Prompt Engineering Deep Dive ── -->
+<section id="prompting">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge">Prompt Engineering</span>
+      <h2>Write prompts that actually work</h2>
+      <p>The difference between a vague and a precise prompt is the difference between a draft and production-ready code.</p>
+    </div>
+
+    <div class="prompt-grid" style="margin-bottom: 32px;">
+      <div class="prompt-card">
+        <div class="prompt-label bad-label">❌ Vague Prompt</div>
+        <div class="prompt-body">
+          <p>"Write me a function."</p>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-label good-label">✅ Precise Prompt</div>
+        <div class="prompt-body">
+          <p>"Write a Python function called <strong>parse_date</strong> that accepts a string in ISO 8601 format and returns a <strong>datetime</strong> object. Include type hints, a docstring, and raise a <strong>ValueError</strong> with a descriptive message if the format is invalid. Add 3 unit tests using pytest."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prompt anatomy code block -->
+    <div class="code-window">
+      <div class="code-titlebar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="code-filename">prompt_anatomy.txt</span>
+      </div>
+      <div class="code-body"><pre><span class="comment">──────────────────────────────────────────────────</span>
+<span class="prompt"> ANATOMY OF A GREAT CODING PROMPT</span>
+<span class="comment">──────────────────────────────────────────────────</span>
+
+<span class="keyword">[1] ROLE</span>       <span class="string">You are an expert Python developer specializing in data pipelines.</span>
+
+<span class="keyword">[2] CONTEXT</span>    <span class="string">I am building an ETL pipeline that reads CSV files from S3,</span>
+               <span class="string">transforms the data, and loads it into a PostgreSQL database.</span>
+
+<span class="keyword">[3] TASK</span>       <span class="string">Write a function that reads a CSV from S3 using boto3,</span>
+               <span class="string">converts each row to a Pydantic model, and yields batches of 100 rows.</span>
+
+<span class="keyword">[4] FORMAT</span>     <span class="string">Include type hints, a docstring with Args/Returns/Raises sections,</span>
+               <span class="string">and handle boto3 ClientError exceptions with logging.</span>
+
+<span class="keyword">[5] CONSTRAINTS</span> <span class="string">Python 3.11+, no pandas, memory-efficient (streaming), PEP 8 style.</span>
+
+<span class="keyword">[6] EXAMPLE</span>    <span class="string">Input: "s3://my-bucket/data/users.csv"</span>
+               <span class="string">Output: Iterator[List[UserModel]] in batches of 100</span>
+
+<span class="comment">──────────────────────────────────────────────────</span>
+<span class="output"> Result: Precise, production-ready code on first attempt</span>
+<span class="comment">──────────────────────────────────────────────────</span></pre></div>
+    </div>
+
+    <div style="margin-top: 32px;">
+      <div class="callout">
+        <span class="callout-icon">💡</span>
+        <div>
+          <h4>Pro Tip: Iterative Prompting</h4>
+          <p>Don't expect perfection on the first try. Start with a clear prompt, review the AI output, then refine with follow-up messages: "Add error handling for network timeouts" or "Refactor this to use async/await." Think of it as pair programming, not one-shot generation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Workflow ── -->
+<section style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge">Developer Workflow</span>
+      <h2>The AI-assisted development loop</h2>
+      <p>A repeatable process for integrating AI into your daily coding routine.</p>
+    </div>
+
+    <div class="workflow-steps">
+      <div class="workflow-step">
+        <div class="step-num">1</div>
+        <h4>Define</h4>
+        <p>Describe the feature or problem clearly in plain English, including constraints.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">2</div>
+        <h4>Prompt</h4>
+        <p>Craft a structured prompt with role, context, format, and examples.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">3</div>
+        <h4>Review</h4>
+        <p>Read AI output critically. Verify logic, security, edge cases, and style.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">4</div>
+        <h4>Refine</h4>
+        <p>Ask follow-up questions, request changes, or iterate on specific sections.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">5</div>
+        <h4>Test</h4>
+        <p>Run unit tests (AI can write these too) and validate in your real environment.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">6</div>
+        <h4>Ship</h4>
+        <p>Commit, review in CI/CD, and deploy with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tools ── -->
+<section id="tools">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge">AI Coding Tools</span>
+      <h2>The essential toolkit for AI-powered development</h2>
+      <p>These tools integrate into your existing workflow and provide superpowers at every stage.</p>
+    </div>
+
+    <div class="tools-grid">
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(108,99,255,.15); color: var(--accent);">⚡</div>
+        <div>
+          <div class="tool-name">Cursor</div>
+          <div class="tool-desc">AI-first IDE with inline code generation, multi-file editing, and codebase-aware chat.</div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(0,0,0,.3); color: #fff; font-size: 14px;">GH</div>
+        <div>
+          <div class="tool-name">GitHub Copilot</div>
+          <div class="tool-desc">Real-time autocomplete and chat inside VS Code, JetBrains, Vim, and more.</div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(255,165,0,.12); color: orange;">🤖</div>
+        <div>
+          <div class="tool-name">ChatGPT / Claude</div>
+          <div class="tool-desc">Conversational AI for architecture advice, debugging, code review, and documentation.</div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(0,212,255,.12); color: var(--accent2);">🔗</div>
+        <div>
+          <div class="tool-name">LangChain / LangGraph</div>
+          <div class="tool-desc">Framework for building LLM-powered chains, agents, and multi-step workflows.</div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(67,233,123,.12); color: var(--green);">📊</div>
+        <div>
+          <div class="tool-name">LangSmith</div>
+          <div class="tool-desc">Trace, debug, evaluate, and monitor your LLM calls and agent runs in production.</div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(255,107,107,.12); color: var(--accent3);">🗄️</div>
+        <div>
+          <div class="tool-name">Pinecone / Qdrant</div>
+          <div class="tool-desc">Managed vector databases for storing embeddings and powering semantic search &amp; RAG.</div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(254,188,46,.12); color: #febc2e;">🐍</div>
+        <div>
+          <div class="tool-name">OpenAI Python SDK</div>
+          <div class="tool-desc">Official library to interact with GPT-4o, embeddings, DALL·E, and Whisper APIs.</div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-logo" style="background: rgba(108,99,255,.15); color: var(--accent);">🤗</div>
+        <div>
+          <div class="tool-name">Hugging Face</div>
+          <div class="tool-desc">Open-source models, datasets, and inference APIs for running LLMs locally or in the cloud.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Sample Code: RAG Pipeline ── -->
+<section style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge">Code Example</span>
+      <h2>Build a RAG pipeline in 30 lines</h2>
+      <p>Retrieval Augmented Generation lets your AI answer questions about your own documents.</p>
+    </div>
+
+    <div class="code-window">
+      <div class="code-titlebar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="code-filename">rag_pipeline.py</span>
+      </div>
+      <div class="code-body"><pre><span class="keyword">from</span> <span class="fn">openai</span> <span class="keyword">import</span> OpenAI
+<span class="keyword">import</span> <span class="fn">chromadb</span>
+
+client = OpenAI()
+db     = chromadb.Client()
+collection = db.create_collection(<span class="string">"docs"</span>)
+
+<span class="comment"># ── Step 1: Embed your documents ──────────────────</span>
+<span class="keyword">def</span> <span class="fn">ingest</span>(documents: <span class="var">list</span>[<span class="var">str</span>]):
+    embeddings = client.embeddings.create(
+        input=documents,
+        model=<span class="string">"text-embedding-3-small"</span>
+    ).data
+    collection.add(
+        ids=[<span class="fn">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="fn">range</span>(<span class="fn">len</span>(documents))],
+        documents=documents,
+        embeddings=[e.embedding <span class="keyword">for</span> e <span class="keyword">in</span> embeddings],
+    )
+
+<span class="comment"># ── Step 2: Retrieve relevant context ────────────</span>
+<span class="keyword">def</span> <span class="fn">retrieve</span>(query: <span class="var">str</span>, top_k=<span class="num">3</span>) -> <span class="var">str</span>:
+    q_emb = client.embeddings.create(
+        input=[query], model=<span class="string">"text-embedding-3-small"</span>
+    ).data[<span class="num">0</span>].embedding
+    results = collection.query(query_embeddings=[q_emb], n_results=top_k)
+    <span class="keyword">return</span> <span class="string">"\n---\n"</span>.join(results[<span class="string">"documents"</span>][<span class="num">0</span>])
+
+<span class="comment"># ── Step 3: Generate grounded answer ─────────────</span>
+<span class="keyword">def</span> <span class="fn">ask</span>(question: <span class="var">str</span>) -> <span class="var">str</span>:
+    context = <span class="fn">retrieve</span>(question)
+    resp = client.chat.completions.create(
+        model=<span class="string">"gpt-4o"</span>,
+        messages=[
+            {<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>:
+                <span class="string">f"Answer using ONLY this context:\n{context}"</span>},
+            {<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: question}
+        ]
+    )
+    <span class="keyword">return</span> resp.choices[<span class="num">0</span>].message.content
+
+<span class="comment"># ── Usage ─────────────────────────────────────────</span>
+<span class="fn">ingest</span>([<span class="string">"Our refund policy allows returns within 30 days..."</span>,
+        <span class="string">"Shipping takes 3-5 business days in the US..."</span>])
+
+<span class="fn">print</span>(<span class="fn">ask</span>(<span class="string">"How long do I have to return an item?"</span>))
+<span class="output"># → "You have 30 days to return an item per our refund policy."</span></pre></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" id="start">
+  <div class="container">
+    <span class="badge">Ready to start?</span>
+    <h2 style="margin-top: 16px;">Your AI coding journey<br>starts with one prompt</h2>
+    <p>Join thousands of developers building faster and smarter with AI tools.</p>
+    <div class="cta-glow">
+      <a href="#curriculum" class="btn-primary" style="font-size: 16px; padding: 16px 36px;">
+        🚀 Begin Lesson 01 — Free
+      </a>
+    </div>
+
+    <div style="margin-top: 48px; display: flex; justify-content: center;">
+      <div class="callout" style="max-width: 600px; text-align: left;">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <h4>A note on AI as a tool, not a crutch</h4>
+          <p>AI can write code, but it can't replace your understanding of fundamentals, security, and architecture. The best AI-assisted developers are also strong engineers who critically evaluate every line the AI produces.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container footer-inner">
+    <span class="logo">⚡ AI Coding</span>
+    <div class="footer-links">
+      <a href="#concepts">Concepts</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#prompting">Prompting</a>
+      <a href="#tools">Tools</a>
+    </div>
+    <p>Built to help every developer harness AI • 2026</p>
+  </div>
+</footer>
+
+<script>
+  /* Smooth scroll offset for fixed nav */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = 72;
+      window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+    });
+  });
+
+  /* Intersection Observer — fade-in cards on scroll */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.concept-card, .tool-card, .lesson').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
