@@ -4,846 +4,399 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lazzlly Lab. — Web Design & Creative Portfolio</title>
-  <meta name="description" content="LP制作・チラシ・バナー制作を手がけるWebクリエイター Lazzlly Lab. のポートフォリオ。" />
+  <meta name="description" content="LP制作・Webバナー・チラシデザインを手がけるWebクリエイター Lazzlly Lab. のポートフォリオ。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-
   <style>
 /* =============================================
-   Design Tokens & Reset
+   Tokens & Reset
 ============================================= */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --rose:      #C8707E;
-  --rose-l:    #E4A0AB;
-  --rose-pale: #F9ECEE;
-  --sage:      #7D9E8C;
-  --sage-l:    #B8D0C4;
-  --sage-pale: #EFF5F2;
-  --lav:       #A898BC;
-  --lav-pale:  #F0EDF5;
-  --cream:     #FDFAF6;
-  --warm:      #F5EDE0;
-  --brown:     #3A2E28;
-  --text:      #2E2420;
-  --muted:     #8A7A72;
-  --border:    #EAE0D8;
-  --white:     #FFFFFF;
-
-  --font-disp: 'Cormorant Garamond', serif;
-  --font-jp:   'Noto Sans JP', sans-serif;
-  --font-sans: 'DM Sans', sans-serif;
-  --radius:    18px;
-  --radius-lg: 28px;
-  --shadow:    0 4px 32px rgba(60,30,30,0.07);
-  --shadow-lg: 0 16px 60px rgba(60,30,30,0.13);
-  --ease:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --rose:     #C8707E;
+  --rose-l:   #E4A0AB;
+  --rose-pale:#F9ECEE;
+  --sage:     #7D9E8C;
+  --sage-l:   #B8D0C4;
+  --sage-pale:#EFF5F2;
+  --lav:      #A898BC;
+  --lav-pale: #F0EDF5;
+  --amber:    #C89050;
+  --amber-l:  #E8C080;
+  --amber-pale:#FDF5E0;
+  --cream:    #FDFAF6;
+  --warm:     #F5EDE0;
+  --brown:    #3A2E28;
+  --text:     #2E2420;
+  --muted:    #8A7A72;
+  --border:   #EAE0D8;
+  --white:    #FFFFFF;
+  --font-disp:'Cormorant Garamond',serif;
+  --font-jp:  'Noto Sans JP',sans-serif;
+  --font-sans:'DM Sans',sans-serif;
+  --radius:   18px;
+  --radius-lg:28px;
+  --shadow:   0 4px 32px rgba(60,30,30,.07);
+  --shadow-lg:0 16px 60px rgba(60,30,30,.13);
+  --ease:     cubic-bezier(.25,.46,.45,.94);
 }
-
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  background: var(--cream);
-  color: var(--text);
-  font-family: var(--font-jp);
-  font-weight: 300;
-  line-height: 1.8;
-  overflow-x: hidden;
-}
-a { color: inherit; text-decoration: none; transition: all 0.3s ease; }
-img, svg { display: block; max-width: 100%; }
-
-/* noise overlay */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 0;
-}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--cream);color:var(--text);font-family:var(--font-jp);font-weight:300;line-height:1.8;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;transition:all .3s ease;}
+img,svg{display:block;max-width:100%;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
 
 /* =============================================
    Typography
 ============================================= */
-.tag-label {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--rose);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.tag-label::before { content: ''; width: 20px; height: 1px; background: var(--rose); }
-
-.section-title {
-  font-family: var(--font-disp);
-  font-size: clamp(2rem, 4.5vw, 3rem);
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-.section-title em { font-style: italic; color: var(--rose); }
+.tag-label{font-family:var(--font-sans);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);display:flex;align-items:center;gap:6px;}
+.tag-label::before{content:'';width:20px;height:1px;background:var(--rose);}
+.section-title{font-family:var(--font-disp);font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:300;line-height:1.2;color:var(--text);letter-spacing:-.01em;}
+.section-title em{font-style:italic;color:var(--rose);}
 
 /* =============================================
    Buttons
 ============================================= */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 2rem;
-  border-radius: 50px;
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  border: none;
-  transition: all 0.4s var(--ease);
-}
-.btn--rose {
-  background: var(--rose);
-  color: var(--white);
-  box-shadow: 0 6px 24px rgba(200,112,126,0.3);
-}
-.btn--rose:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(200,112,126,0.4); }
-.btn--outline {
-  border: 1.5px solid var(--rose-l);
-  color: var(--rose);
-  background: transparent;
-}
-.btn--outline:hover { background: var(--rose-pale); border-color: var(--rose); transform: translateY(-2px); }
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:50px;font-family:var(--font-sans);font-size:.85rem;font-weight:500;letter-spacing:.05em;cursor:pointer;border:none;transition:all .4s var(--ease);}
+.btn--rose{background:var(--rose);color:var(--white);box-shadow:0 6px 24px rgba(200,112,126,.3);}
+.btn--rose:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(200,112,126,.4);}
+.btn--outline{border:1.5px solid var(--rose-l);color:var(--rose);background:transparent;}
+.btn--outline:hover{background:var(--rose-pale);border-color:var(--rose);transform:translateY(-2px);}
 
 /* =============================================
    Header
 ============================================= */
-.header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  padding: 1.5rem 0;
-  transition: all 0.5s ease;
-}
-.header.scrolled {
-  background: rgba(253,250,246,0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  padding: 1rem 0;
-  box-shadow: 0 1px 0 var(--border);
-}
-.header__inner {
-  max-width: 1160px; margin: 0 auto; padding: 0 2rem;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.header__logo { display: flex; flex-direction: column; line-height: 1; }
-.header__logo-main {
-  font-family: var(--font-disp);
-  font-size: 1.35rem; font-weight: 400;
-  letter-spacing: 0.06em; color: var(--text);
-}
-.header__logo-main em { font-style: italic; color: var(--rose); }
-.header__logo-sub {
-  font-family: var(--font-sans);
-  font-size: 0.58rem; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--muted); margin-top: 2px;
-}
-.header__nav { display: flex; align-items: center; gap: 2.5rem; }
-.header__nav a {
-  font-family: var(--font-sans);
-  font-size: 0.8rem; font-weight: 400;
-  color: var(--muted); letter-spacing: 0.04em;
-}
-.header__nav a:hover { color: var(--rose); }
-.header__cta {
-  padding: 0.5rem 1.4rem;
-  border: 1.5px solid var(--rose-l);
-  border-radius: 50px;
-  font-family: var(--font-sans);
-  font-size: 0.78rem; font-weight: 500;
-  color: var(--rose) !important;
-  transition: all 0.3s ease !important;
-}
-.header__cta:hover { background: var(--rose-pale) !important; border-color: var(--rose) !important; }
+.header{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.4rem 0;transition:all .5s ease;}
+.header.scrolled{background:rgba(253,250,246,.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:.9rem 0;box-shadow:0 1px 0 var(--border);}
+.header__inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;flex-direction:column;line-height:1;}
+.logo-main{font-family:var(--font-disp);font-size:1.3rem;font-weight:400;letter-spacing:.06em;color:var(--text);}
+.logo-main em{font-style:italic;color:var(--rose);}
+.logo-sub{font-family:var(--font-sans);font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.nav{display:flex;align-items:center;gap:2rem;}
+.nav a{font-family:var(--font-sans);font-size:.78rem;font-weight:400;color:var(--muted);letter-spacing:.04em;}
+.nav a:hover{color:var(--rose);}
+.nav-cta{padding:.45rem 1.2rem;border:1.5px solid var(--rose-l);border-radius:50px;font-family:var(--font-sans);font-size:.75rem;font-weight:500;color:var(--rose) !important;transition:all .3s ease !important;}
+.nav-cta:hover{background:var(--rose-pale) !important;border-color:var(--rose) !important;}
 
 /* =============================================
    HERO
 ============================================= */
-.hero {
-  min-height: 100vh;
-  position: relative; overflow: hidden;
-  display: flex; align-items: center;
-}
-.hero__bg {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, #FDF8F3 0%, #F9EEF0 30%, #F2E8F5 60%, #EDF4F0 100%);
-}
-.hero__blob {
-  position: absolute; border-radius: 50%;
-  filter: blur(80px); opacity: 0.5; pointer-events: none;
-}
-.hero__blob-1 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(200,112,126,0.18) 0%, transparent 70%);
-  top: -100px; right: -100px;
-  animation: blobFloat1 14s ease-in-out infinite;
-}
-.hero__blob-2 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(125,158,140,0.15) 0%, transparent 70%);
-  bottom: -80px; left: -80px;
-  animation: blobFloat2 18s ease-in-out infinite;
-}
-.hero__blob-3 {
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(168,152,188,0.15) 0%, transparent 70%);
-  top: 40%; left: 40%;
-  animation: blobFloat1 22s ease-in-out infinite reverse;
-}
-@keyframes blobFloat1 {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  33% { transform: translate(30px,-20px) scale(1.08); }
-  66% { transform: translate(-20px,30px) scale(0.95); }
-}
-@keyframes blobFloat2 {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  50% { transform: translate(-30px,-30px) scale(1.12); }
-}
-.hero__floral {
-  position: absolute;
-  right: 0; top: 0; bottom: 0;
-  width: 50%;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0;
-  animation: floralAppear 1.2s ease forwards 0.8s;
-}
-@keyframes floralAppear {
-  from { opacity: 0; transform: scale(0.95) translateX(20px); }
-  to   { opacity: 1; transform: scale(1) translateX(0); }
-}
-.hero__content {
-  position: relative; z-index: 2;
-  max-width: 1160px; margin: 0 auto;
-  padding: 8rem 2rem 4rem; width: 100%;
-}
-.hero__eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-sans);
-  font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--rose); margin-bottom: 1.5rem;
-  opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s;
-}
-.hero__eyebrow-dot {
-  width: 6px; height: 6px; background: var(--rose); border-radius: 50%;
-  animation: dotPulse 2s ease-in-out infinite;
-}
-@keyframes dotPulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.4; transform: scale(0.6); }
-}
-.hero__title {
-  font-family: var(--font-disp);
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  font-weight: 300; line-height: 1.1;
-  letter-spacing: -0.02em; color: var(--text);
-  margin-bottom: 1.25rem; max-width: 600px;
-  opacity: 0; animation: fadeUp 0.8s ease forwards 0.35s;
-}
-.hero__title em { display: block; font-style: italic; color: var(--rose); }
-.hero__title span { display: block; font-size: 0.65em; color: var(--muted); font-weight: 300; }
-.hero__desc {
-  font-size: 0.95rem; color: var(--muted);
-  max-width: 420px; line-height: 1.95;
-  margin-bottom: 2.5rem;
-  opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s;
-}
-.hero__btns {
-  display: flex; gap: 1rem; flex-wrap: wrap;
-  opacity: 0; animation: fadeUp 0.8s ease forwards 0.65s;
-}
-.hero__scroll {
-  position: absolute; bottom: 2.5rem; left: 2rem;
-  display: flex; align-items: center; gap: 0.75rem;
-  opacity: 0; animation: fadeIn 1s ease forwards 1.4s;
-}
-.hero__scroll span {
-  font-family: var(--font-sans);
-  font-size: 0.65rem; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--muted);
-}
-.hero__scroll-line {
-  width: 40px; height: 1px;
-  background: linear-gradient(to right, var(--rose-l), transparent);
-  animation: scrollLinePulse 2s ease-in-out infinite;
-}
-@keyframes scrollLinePulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-.hero__stats {
-  position: absolute; bottom: 3rem; right: 2rem;
-  display: flex; gap: 2.5rem;
-  opacity: 0; animation: fadeIn 1s ease forwards 1.2s;
-}
-.hero__stat strong {
-  display: block;
-  font-family: var(--font-disp); font-size: 2.2rem; font-weight: 300;
-  color: var(--rose); line-height: 1;
-}
-.hero__stat span { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;}
+.hero__bg{position:absolute;inset:0;background:linear-gradient(135deg,#FDF8F3 0%,#F9EEF0 30%,#F2E8F5 60%,#EDF4F0 100%);}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;pointer-events:none;}
+.blob1{width:500px;height:500px;background:radial-gradient(circle,rgba(200,112,126,.18) 0%,transparent 70%);top:-100px;right:-100px;animation:bf1 14s ease-in-out infinite;}
+.blob2{width:400px;height:400px;background:radial-gradient(circle,rgba(125,158,140,.15) 0%,transparent 70%);bottom:-80px;left:-80px;animation:bf2 18s ease-in-out infinite;}
+.blob3{width:280px;height:280px;background:radial-gradient(circle,rgba(168,152,188,.15) 0%,transparent 70%);top:40%;left:42%;animation:bf1 22s ease-in-out infinite reverse;}
+@keyframes bf1{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,-20px) scale(1.08);}66%{transform:translate(-20px,30px) scale(.95);}}
+@keyframes bf2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,-30px) scale(1.12);}}
+.hero__floral{position:absolute;right:0;top:0;bottom:0;width:50%;display:flex;align-items:center;justify-content:center;opacity:0;animation:floralIn 1.2s ease forwards .8s;}
+@keyframes floralIn{from{opacity:0;transform:scale(.95) translateX(20px);}to{opacity:1;transform:scale(1) translateX(0);}}
+.hero__content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:8rem 2rem 4rem;width:100%;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s ease forwards .2s;}
+.eyebrow-dot{width:6px;height:6px;background:var(--rose);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
+.hero-title{font-family:var(--font-disp);font-size:clamp(3rem,7vw,5.5rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--text);margin-bottom:1.25rem;max-width:600px;opacity:0;animation:fadeUp .8s ease forwards .35s;}
+.hero-title em{display:block;font-style:italic;color:var(--rose);}
+.hero-title span{display:block;font-size:.6em;color:var(--muted);font-weight:300;}
+.hero-desc{font-size:.95rem;color:var(--muted);max-width:430px;line-height:1.95;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s ease forwards .5s;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards .65s;}
+.hero-scroll{position:absolute;bottom:2.5rem;left:2rem;display:flex;align-items:center;gap:.75rem;opacity:0;animation:fadeIn 1s ease forwards 1.4s;}
+.hero-scroll span{font-family:var(--font-sans);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);}
+.hero-scroll-line{width:40px;height:1px;background:linear-gradient(to right,var(--rose-l),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-stats{position:absolute;bottom:3rem;right:2rem;display:flex;gap:2.5rem;opacity:0;animation:fadeIn 1s ease forwards 1.2s;}
+.hero-stats strong{display:block;font-family:var(--font-disp);font-size:2.2rem;font-weight:300;color:var(--rose);line-height:1;}
+.hero-stats span{font-size:.72rem;color:var(--muted);letter-spacing:.08em;}
 
 /* =============================================
    ABOUT
 ============================================= */
-.about {
-  padding: 8rem 2rem; background: var(--white);
-  position: relative; z-index: 1;
-}
-.about__inner {
-  max-width: 1160px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 7rem; align-items: center;
-}
-.about__text p { font-size: 0.93rem; color: var(--muted); line-height: 2; margin-bottom: 1.1rem; }
-.about__skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-.skill-chip {
-  font-family: var(--font-sans); font-size: 0.72rem;
-  padding: 0.3rem 0.9rem; border-radius: 50px;
-  font-weight: 400; letter-spacing: 0.04em; transition: all 0.3s ease;
-}
-.skill-chip:nth-child(3n+1) { background: var(--rose-pale); color: var(--rose); border: 1px solid var(--rose-l); }
-.skill-chip:nth-child(3n+2) { background: var(--sage-pale); color: var(--sage); border: 1px solid var(--sage-l); }
-.skill-chip:nth-child(3n+3) { background: var(--lav-pale); color: var(--lav); border: 1px solid #D0C8E0; }
-.skill-chip:hover { transform: translateY(-2px); }
-.about__visual { position: relative; }
-.about__card {
-  background: var(--cream); border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg); padding: 2.5rem;
-  position: relative; overflow: hidden;
-  box-shadow: var(--shadow);
-}
-.about__card::before {
-  content: ''; position: absolute;
-  top: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(90deg, var(--rose), var(--rose-l), var(--lav));
-}
-.about__card-profile {
-  display: flex; align-items: center; gap: 1.25rem;
-  margin-bottom: 1.5rem; padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-.about__avatar {
-  width: 60px; height: 60px;
-  background: linear-gradient(135deg, var(--rose-pale), var(--sage-pale));
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem; border: 2px solid var(--border); flex-shrink: 0;
-}
-.about__name { font-family: var(--font-disp); font-size: 1.2rem; font-weight: 400; color: var(--text); margin-bottom: 2px; }
-.about__name-sub { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-.about__info-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-.about__info-list li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--muted); }
-.about__info-list li span:first-child { font-size: 0.9rem; width: 22px; text-align: center; }
-.about__deco-1 {
-  position: absolute; top: -2rem; right: -2rem;
-  width: 100px; height: 100px;
-  border: 1.5px solid var(--rose-l); border-radius: 50%; opacity: 0.4;
-}
-.about__deco-2 {
-  position: absolute; bottom: -1.5rem; left: -1.5rem;
-  width: 70px; height: 70px;
-  background: var(--sage-pale);
-  border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%; opacity: 0.7;
-}
+.about{padding:8rem 2rem;background:var(--white);position:relative;z-index:1;}
+.about__inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.about__text p{font-size:.93rem;color:var(--muted);line-height:2;margin-bottom:1.1rem;}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
+.chip{font-family:var(--font-sans);font-size:.72rem;padding:.3rem .9rem;border-radius:50px;font-weight:400;letter-spacing:.04em;transition:all .3s ease;}
+.chip:nth-child(4n+1){background:var(--rose-pale);color:var(--rose);border:1px solid var(--rose-l);}
+.chip:nth-child(4n+2){background:var(--sage-pale);color:var(--sage);border:1px solid var(--sage-l);}
+.chip:nth-child(4n+3){background:var(--lav-pale);color:var(--lav);border:1px solid #D0C8E0;}
+.chip:nth-child(4n+4){background:var(--amber-pale);color:var(--amber);border:1px solid var(--amber-l);}
+.chip:hover{transform:translateY(-2px);}
+.about__card{background:var(--cream);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:2.25rem;position:relative;overflow:hidden;box-shadow:var(--shadow);}
+.about__card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--rose),var(--rose-l),var(--lav));}
+.about-profile{display:flex;align-items:center;gap:1.25rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.avatar{width:58px;height:58px;background:linear-gradient(135deg,var(--rose-pale),var(--sage-pale));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:2px solid var(--border);flex-shrink:0;}
+.aname{font-family:var(--font-disp);font-size:1.15rem;font-weight:400;color:var(--text);margin-bottom:2px;}
+.aname-sub{font-family:var(--font-sans);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.info-list{list-style:none;display:flex;flex-direction:column;gap:.7rem;}
+.info-list li{display:flex;align-items:center;gap:.75rem;font-size:.85rem;color:var(--muted);}
+.info-list li span:first-child{font-size:.9rem;width:20px;text-align:center;}
+.about-deco1{position:absolute;top:-2rem;right:-2rem;width:100px;height:100px;border:1.5px solid var(--rose-l);border-radius:50%;opacity:.4;}
+.about-deco2{position:absolute;bottom:-1.5rem;left:-1.5rem;width:70px;height:70px;background:var(--sage-pale);border-radius:40% 60% 60% 40% / 40% 40% 60% 60%;opacity:.7;}
 
 /* =============================================
-   SERVICES (Main + Sub)
+   SERVICES
 ============================================= */
-.services {
-  padding: 7rem 2rem; background: var(--cream);
-  position: relative; z-index: 1;
-}
-.services__inner { max-width: 1160px; margin: 0 auto; }
-.services__header { text-align: center; margin-bottom: 4rem; }
-.services__header p { font-size: 0.9rem; color: var(--muted); margin-top: 0.75rem; }
-.services__group-title {
-  font-family: var(--font-sans); font-size: 0.68rem;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  margin-bottom: 1.25rem; padding-left: 0.25rem;
-  display: flex; align-items: center; gap: 10px;
-}
-.services__group-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.services__group-title.main { color: var(--rose); }
-.services__group-title.sub  { color: var(--muted); }
-.services__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-bottom: 3rem; }
-.services__grid.sub-grid { grid-template-columns: 1fr; }
-.service-card {
-  background: var(--white); border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg); padding: 2.25rem 2rem 2rem;
-  transition: all 0.4s var(--ease); position: relative; overflow: hidden;
-}
-.service-card::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-  transform: scaleX(0); transition: transform 0.4s ease;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-}
-.service-card:nth-child(1)::after { background: var(--rose); }
-.service-card:nth-child(2)::after { background: var(--sage); }
-.service-card:nth-child(3)::after { background: var(--lav); }
-.service-card.sub-card::after      { background: var(--muted); }
-.service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
-.service-card:hover::after { transform: scaleX(1); }
-.service-card__icon {
-  width: 52px; height: 52px; border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem; margin-bottom: 1.25rem;
-}
-.service-card:nth-child(1) .service-card__icon { background: var(--rose-pale); }
-.service-card:nth-child(2) .service-card__icon { background: var(--sage-pale); }
-.service-card:nth-child(3) .service-card__icon { background: var(--lav-pale); }
-.service-card.sub-card .service-card__icon { background: #F0F0F0; }
-.service-card__title { font-family: var(--font-disp); font-size: 1.3rem; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; }
-.service-card__desc { font-size: 0.85rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
-.service-card__count { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; line-height: 1; }
-.service-card:nth-child(1) .service-card__count { color: var(--rose); }
-.service-card:nth-child(2) .service-card__count { color: var(--sage); }
-.service-card:nth-child(3) .service-card__count { color: var(--lav); }
-.service-card.sub-card .service-card__count     { color: var(--muted); }
-.service-card__count small { font-size: 0.55em; color: var(--muted); }
+.services{padding:7rem 2rem;background:var(--cream);position:relative;z-index:1;}
+.services__inner{max-width:1200px;margin:0 auto;}
+.services-header{text-align:center;margin-bottom:3.5rem;}
+.services-header p{font-size:.9rem;color:var(--muted);margin-top:.75rem;}
+.group-head{font-family:var(--font-sans);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:1.25rem;padding-left:.25rem;display:flex;align-items:center;gap:10px;}
+.group-head::after{content:'';flex:1;height:1px;background:var(--border);}
+.group-head.main{color:var(--rose);}
+.group-head.sub{color:var(--muted);}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:2.5rem;}
+.svc-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem 1.5rem 1.5rem;transition:all .4s var(--ease);position:relative;overflow:hidden;}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transition:transform .4s ease;border-radius:0 0 var(--radius-lg) var(--radius-lg);}
+.svc-card:nth-child(1)::after{background:var(--rose);}
+.svc-card:nth-child(2)::after{background:var(--amber);}
+.svc-card:nth-child(3)::after{background:var(--sage);}
+.svc-card:nth-child(4)::after{background:var(--lav);}
+.svc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;}
+.svc-card:nth-child(1) .svc-icon{background:var(--rose-pale);}
+.svc-card:nth-child(2) .svc-icon{background:var(--amber-pale);}
+.svc-card:nth-child(3) .svc-icon{background:var(--sage-pale);}
+.svc-card:nth-child(4) .svc-icon{background:var(--lav-pale);}
+.svc-title{font-family:var(--font-disp);font-size:1.15rem;font-weight:400;color:var(--text);margin-bottom:.6rem;}
+.svc-desc{font-size:.82rem;color:var(--muted);line-height:1.85;margin-bottom:1rem;}
+.svc-count{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;line-height:1;}
+.svc-card:nth-child(1) .svc-count{color:var(--rose);}
+.svc-card:nth-child(2) .svc-count{color:var(--amber);}
+.svc-card:nth-child(3) .svc-count{color:var(--sage);}
+.svc-card:nth-child(4) .svc-count{color:var(--lav);}
+.svc-count small{font-size:.55em;color:var(--muted);}
+
+/* サブ1カラム */
+.svc-grid-sub{display:grid;grid-template-columns:1fr;margin-bottom:0;}
+.svc-card-sub{max-width:560px;border-color:var(--border);}
+.svc-card-sub::after{background:var(--muted) !important;}
+.svc-card-sub .svc-icon{background:#F0F0F0;}
+.svc-card-sub .svc-count{color:var(--muted);}
 
 /* =============================================
-   MAIN WORKS
+   SECTION DIVIDER (メイン内)
 ============================================= */
-.works-main {
-  padding: 8rem 2rem 2rem; background: var(--white);
-  position: relative; z-index: 1;
-}
-.works-main__inner { max-width: 1160px; margin: 0 auto; }
-.works-header {
-  display: flex; align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 2.5rem; gap: 2rem; flex-wrap: wrap;
-}
-.works-filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.filter-btn {
-  padding: 0.45rem 1.1rem; border-radius: 50px;
-  font-family: var(--font-sans); font-size: 0.75rem;
-  font-weight: 500; cursor: pointer;
-  border: 1.5px solid var(--border);
-  background: transparent; color: var(--muted);
-  transition: all 0.3s ease; letter-spacing: 0.04em;
-}
-.filter-btn.active, .filter-btn:hover {
-  background: var(--rose); border-color: var(--rose); color: var(--white);
-}
-.works-grid {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
-  margin-bottom: 6rem;
-}
+.works-area{background:var(--white);position:relative;z-index:1;}
+.works-inner{max-width:1200px;margin:0 auto;padding:0 2rem;}
+.works-block{padding:5rem 0;}
+.works-block+.works-block{border-top:1.5px dashed var(--border);}
+.works-block-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;gap:2rem;flex-wrap:wrap;}
+.works-block-header-left{}
+.cat-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:.28rem .85rem;border-radius:50px;margin-bottom:.5rem;}
+.cat-badge.lp     {background:var(--rose-pale);  color:var(--rose);  border:1px solid var(--rose-l);}
+.cat-badge.banner {background:var(--amber-pale); color:var(--amber); border:1px solid var(--amber-l);}
+.cat-badge.flyer  {background:var(--sage-pale);  color:var(--sage);  border:1px solid var(--sage-l);}
+.cat-badge.video  {background:#F0F0F0;           color:var(--muted); border:1px solid var(--border);}
+
+/* フィルター */
+.filter-wrap{display:flex;gap:.5rem;flex-wrap:wrap;}
+.filter-btn{padding:.42rem 1.1rem;border-radius:50px;font-family:var(--font-sans);font-size:.75rem;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--muted);transition:all .3s ease;letter-spacing:.04em;}
+.filter-btn.active,.filter-btn:hover{background:var(--rose);border-color:var(--rose);color:var(--white);}
 
 /* =============================================
-   WORKS DIVIDER
+   CARD GRID (共通)
 ============================================= */
-.works-divider {
-  padding: 0 2rem 0;
-  background: var(--white);
-  position: relative; z-index: 1;
-}
-.works-divider__inner {
-  max-width: 1160px; margin: 0 auto;
-  border-top: 1.5px dashed var(--border);
-  padding-top: 5rem;
-}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.card-grid.cols2{grid-template-columns:repeat(2,1fr);}
 
 /* =============================================
-   SUB WORKS (動画)
+   LP & チラシ カード
 ============================================= */
-.works-sub {
-  padding: 0 2rem 8rem;
-  background: var(--white);
-  position: relative; z-index: 1;
-}
-.works-sub__inner { max-width: 1160px; margin: 0 auto; }
-.sub-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #F0F0F0;
-  color: var(--muted);
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.85rem;
-  border-radius: 50px;
-  border: 1px solid var(--border);
-  margin-bottom: 0.6rem;
-}
-.sub-note {
-  font-size: 0.82rem;
-  color: var(--muted);
-  margin-top: 0.4rem;
-  line-height: 1.7;
-}
-.yt-grid {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
-  margin-top: 2.5rem;
-}
+.wcard{background:var(--cream);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .45s var(--ease);display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;}
+.wcard:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--rose-l);}
+.wcard__thumb{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;flex-shrink:0;}
+.wcard__thumb svg,.wcard__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.wcard:hover .wcard__thumb svg,.wcard:hover .wcard__thumb img{transform:scale(1.05);}
+.wcard__overlay{position:absolute;inset:0;background:rgba(46,36,32,.5);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s ease;}
+.wcard:hover .wcard__overlay{opacity:1;}
+.overlay-label{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:white;display:flex;align-items:center;gap:6px;letter-spacing:.1em;border:1px solid rgba(255,255,255,.5);padding:.5rem 1.25rem;border-radius:50px;backdrop-filter:blur(4px);}
+.wcard__body{padding:1.2rem 1.4rem 1.5rem;flex:1;display:flex;flex-direction:column;}
+.wcard__cat{font-family:var(--font-sans);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:.35rem;}
+.wcard__title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--text);line-height:1.4;margin-bottom:.4rem;}
+.wcard__desc{font-size:.8rem;color:var(--muted);line-height:1.75;flex:1;margin-bottom:.9rem;}
+.wcard__foot{display:flex;align-items:center;justify-content:space-between;padding-top:.85rem;border-top:1px solid var(--border);}
+.wcard__tags{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tag{font-family:var(--font-sans);font-size:.62rem;padding:.15rem .6rem;border-radius:50px;background:var(--warm);color:var(--muted);}
+.wcard__arrow{width:30px;height:30px;border-radius:50%;background:var(--rose-pale);border:1.5px solid var(--rose-l);display:flex;align-items:center;justify-content:center;color:var(--rose);font-size:.8rem;flex-shrink:0;transition:all .3s var(--ease);}
+.wcard:hover .wcard__arrow{background:var(--rose);border-color:var(--rose);color:white;}
+.wcard.hidden{display:none;}
 
 /* =============================================
-   共通ワークカード
+   BANNER カード（アニメーションバナー）
 ============================================= */
-.work-card {
-  background: var(--cream); border: 1.5px solid var(--border);
-  border-radius: var(--radius); overflow: hidden;
-  transition: all 0.45s var(--ease);
-  text-decoration: none; color: inherit;
-  display: flex; flex-direction: column; cursor: pointer;
-}
-.work-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--rose-l);
-}
-.work-card__thumb {
-  width: 100%; aspect-ratio: 16/9;
-  overflow: hidden; position: relative; flex-shrink: 0;
-}
-.work-card__thumb img,
-.work-card__thumb svg {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-.work-card:hover .work-card__thumb img,
-.work-card:hover .work-card__thumb svg { transform: scale(1.05); }
+.bcard{background:#111;border:1.5px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;transition:all .45s var(--ease);display:flex;flex-direction:column;cursor:pointer;}
+.bcard:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,.4);border-color:rgba(200,160,80,.4);}
+.bcard__thumb{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;flex-shrink:0;background:#000;}
+.bcard__video{width:100%;height:100%;object-fit:cover;display:block;}
+.bcard__overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s ease;}
+.bcard:hover .bcard__overlay{opacity:1;}
+.bcard__body{padding:1.2rem 1.4rem 1.5rem;flex:1;display:flex;flex-direction:column;background:#1a1612;}
+.bcard__cat{font-family:var(--font-sans);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-l);margin-bottom:.35rem;}
+.bcard__title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:#f0e8d8;line-height:1.4;margin-bottom:.4rem;}
+.bcard__desc{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.75;flex:1;margin-bottom:.9rem;}
+.bcard__foot{display:flex;align-items:center;justify-content:space-between;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.08);}
+.bcard__tags{display:flex;gap:.4rem;flex-wrap:wrap;}
+.btag{font-family:var(--font-sans);font-size:.62rem;padding:.15rem .6rem;border-radius:50px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);}
+.bcard__arrow{width:30px;height:30px;border-radius:50%;background:rgba(200,160,80,.12);border:1.5px solid rgba(200,160,80,.3);display:flex;align-items:center;justify-content:center;color:var(--amber-l);font-size:.8rem;flex-shrink:0;transition:all .3s ease;}
+.bcard:hover .bcard__arrow{background:var(--amber);border-color:var(--amber);color:#1a1612;}
 
-.work-card__overlay {
-  position: absolute; inset: 0;
-  background: rgba(46,36,32,0.5);
-  backdrop-filter: blur(2px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.4s ease;
-}
-.work-card:hover .work-card__overlay { opacity: 1; }
-.work-card__overlay-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem; font-style: italic; color: white;
-  display: flex; align-items: center; gap: 6px;
-  letter-spacing: 0.1em;
-  border: 1px solid rgba(255,255,255,0.5);
-  padding: 0.5rem 1.25rem; border-radius: 50px;
-  backdrop-filter: blur(4px);
-}
+/* =============================================
+   YouTube カード
+============================================= */
+.ytcard{background:var(--cream);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .45s var(--ease);display:flex;flex-direction:column;cursor:pointer;}
+.ytcard:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:#FFCDD2;}
+.ytcard__thumb{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;background:#111;}
+.ytcard__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.ytcard:hover .ytcard__thumb img{transform:scale(1.05);}
+.yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25);transition:background .3s ease;}
+.ytcard:hover .yt-play{background:rgba(0,0,0,.45);}
+.yt-play-icon{width:52px;height:52px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:transform .3s var(--ease);padding-left:4px;}
+.ytcard:hover .yt-play-icon{transform:scale(1.15);}
+.ytcard__body{padding:1.2rem 1.4rem 1.5rem;flex:1;display:flex;flex-direction:column;}
+.ytcard__cat{font-family:var(--font-sans);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;}
+.ytcard__title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--text);line-height:1.4;margin-bottom:.4rem;}
+.ytcard__desc{font-size:.8rem;color:var(--muted);line-height:1.75;flex:1;margin-bottom:.9rem;}
+.ytcard__foot{display:flex;align-items:center;justify-content:space-between;padding-top:.85rem;border-top:1px solid var(--border);}
+.ytcard__arrow{width:30px;height:30px;border-radius:50%;background:#F0F0F0;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--muted);flex-shrink:0;transition:all .3s ease;}
+.ytcard:hover .ytcard__arrow{background:#FF0000;border-color:#FF0000;color:white;}
 
-/* YouTube カード */
-.yt-card {
-  background: var(--cream); border: 1.5px solid var(--border);
-  border-radius: var(--radius); overflow: hidden;
-  transition: all 0.45s var(--ease);
-  display: flex; flex-direction: column; cursor: pointer;
-}
-.yt-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: #FFCDD2; }
-.yt-card__thumb {
-  position: relative; aspect-ratio: 16/9; overflow: hidden;
-  background: #111;
-}
-.yt-card__thumb img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s ease;
-}
-.yt-card:hover .yt-card__thumb img { transform: scale(1.05); }
-.yt-play-btn {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.25);
-  transition: background 0.3s ease;
-}
-.yt-card:hover .yt-play-btn { background: rgba(0,0,0,0.45); }
-.yt-play-icon {
-  width: 52px; height: 52px;
-  background: rgba(255,255,255,0.95);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  transition: transform 0.3s var(--ease);
-  padding-left: 4px;
-}
-.yt-card:hover .yt-play-icon { transform: scale(1.15); }
-
-.work-card__body, .yt-card__body {
-  padding: 1.25rem 1.4rem 1.5rem;
-  flex: 1; display: flex; flex-direction: column;
-}
-.work-card__cat, .yt-card__cat {
-  font-family: var(--font-sans); font-size: 0.65rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--rose); margin-bottom: 0.4rem;
-}
-.yt-card__cat { color: var(--muted); }
-.work-card__title, .yt-card__title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; font-weight: 400;
-  color: var(--text); line-height: 1.4;
-  margin-bottom: 0.4rem;
-}
-.work-card__desc, .yt-card__desc {
-  font-size: 0.8rem; color: var(--muted);
-  line-height: 1.75; flex: 1; margin-bottom: 1rem;
-}
-.work-card__footer, .yt-card__footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 0.9rem; border-top: 1px solid var(--border);
-}
-.work-card__tags, .yt-card__tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.work-card__tag, .yt-card__tag {
-  font-family: var(--font-sans); font-size: 0.62rem;
-  padding: 0.15rem 0.6rem; border-radius: 50px;
-  background: var(--warm); color: var(--muted);
-}
-.work-card__arrow {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--rose-pale); border: 1.5px solid var(--rose-l);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--rose); font-size: 0.8rem; flex-shrink: 0;
-  transition: all 0.3s var(--ease);
-}
-.work-card:hover .work-card__arrow { background: var(--rose); border-color: var(--rose); color: white; }
-.yt-card__arrow {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: #F0F0F0; border: 1.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.75rem; color: var(--muted); flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-.yt-card:hover .yt-card__arrow { background: #FF0000; border-color: #FF0000; color: white; }
-.work-card.hidden { display: none; }
+/* =============================================
+   SUB WORKS ラベルエリア
+============================================= */
+.sub-area{background:linear-gradient(to bottom,var(--white),#F8F4F0);position:relative;z-index:1;}
+.sub-inner{max-width:1200px;margin:0 auto;padding:5rem 2rem 7rem;}
+.sub-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;gap:2rem;flex-wrap:wrap;}
+.sub-badge{display:inline-flex;align-items:center;gap:6px;background:#F0F0F0;color:var(--muted);font-family:var(--font-sans);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;padding:.28rem .85rem;border-radius:50px;border:1px solid var(--border);margin-bottom:.5rem;}
+.sub-note{font-size:.82rem;color:var(--muted);line-height:1.7;margin-top:.3rem;}
 
 /* =============================================
    QUOTE
 ============================================= */
-.quote-strip {
-  padding: 6rem 2rem;
-  background: linear-gradient(135deg, var(--rose-pale), var(--lav-pale), var(--sage-pale));
-  text-align: center; position: relative; z-index: 1; overflow: hidden;
-}
-.quote-strip__text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  font-style: italic; font-weight: 300;
-  color: var(--text); max-width: 700px;
-  margin: 0 auto 1rem; line-height: 1.6;
-}
-.quote-strip__author {
-  font-family: var(--font-sans); font-size: 0.78rem;
-  letter-spacing: 0.2em; color: var(--rose); text-transform: uppercase;
-}
-.quote-bg {
-  position: absolute; font-family: 'Cormorant Garamond', serif;
-  font-size: 18rem; font-style: italic;
-  color: rgba(200,112,126,0.05);
-  top: -4rem; left: 50%; transform: translateX(-50%);
-  pointer-events: none; white-space: nowrap; line-height: 1;
-}
+.quote{padding:5.5rem 2rem;background:linear-gradient(135deg,var(--rose-pale),var(--lav-pale),var(--sage-pale));text-align:center;position:relative;z-index:1;overflow:hidden;}
+.quote-bg{position:absolute;font-family:'Cormorant Garamond',serif;font-size:16rem;font-style:italic;color:rgba(200,112,126,.05);top:-3rem;left:50%;transform:translateX(-50%);pointer-events:none;white-space:nowrap;line-height:1;}
+.quote-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,3.5vw,2rem);font-style:italic;font-weight:300;color:var(--text);max-width:680px;margin:0 auto 1rem;line-height:1.6;}
+.quote-author{font-family:var(--font-sans);font-size:.75rem;letter-spacing:.2em;color:var(--rose);text-transform:uppercase;}
 
 /* =============================================
    CTA
 ============================================= */
-.cta {
-  padding: 8rem 2rem; background: var(--cream);
-  position: relative; z-index: 1; text-align: center;
-}
-.cta__inner { max-width: 640px; margin: 0 auto; }
-.cta__title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 300; color: var(--text); line-height: 1.2; margin-bottom: 1.25rem;
-}
-.cta__title em { font-style: italic; color: var(--rose); }
-.cta__desc { font-size: 0.93rem; color: var(--muted); line-height: 1.95; margin-bottom: 3rem; }
-.cta__links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.cta__note { margin-top: 2rem; font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
+.cta{padding:8rem 2rem;background:var(--cream);position:relative;z-index:1;text-align:center;}
+.cta__inner{max-width:640px;margin:0 auto;}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--text);line-height:1.2;margin-bottom:1.25rem;}
+.cta-title em{font-style:italic;color:var(--rose);}
+.cta-desc{font-size:.93rem;color:var(--muted);line-height:1.95;margin-bottom:3rem;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.cta-note{margin-top:2rem;font-family:var(--font-sans);font-size:.75rem;color:var(--muted);letter-spacing:.05em;}
 
 /* =============================================
    FOOTER
 ============================================= */
-.footer { background: var(--brown); color: rgba(255,255,255,0.5); position: relative; z-index: 1; }
-.footer__main {
-  max-width: 1160px; margin: 0 auto; padding: 4rem 2rem 3rem;
-  display: flex; justify-content: space-between; align-items: flex-start;
-  gap: 3rem; flex-wrap: wrap;
-}
-.footer__logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: white; margin-bottom: 0.5rem; letter-spacing: 0.04em; }
-.footer__logo-main em { font-style: italic; color: var(--rose-l); }
-.footer__desc { font-size: 0.82rem; max-width: 260px; line-height: 1.9; margin-bottom: 1.5rem; }
-.footer__social { display: flex; gap: 0.75rem; }
-.footer__social a {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; transition: all 0.3s ease;
-}
-.footer__social a:hover { background: rgba(200,112,126,0.2); border-color: var(--rose-l); }
-.footer__nav { display: flex; gap: 4rem; }
-.footer__col h4 { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.25rem; }
-.footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-.footer__col a { font-size: 0.85rem; color: rgba(255,255,255,0.5); transition: color 0.3s ease; }
-.footer__col a:hover { color: var(--rose-l); }
-.footer__bottom {
-  max-width: 1160px; margin: 0 auto; padding: 1.5rem 2rem;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  display: flex; justify-content: space-between; flex-wrap: wrap;
-  gap: 1rem; font-size: 0.72rem;
-}
+.footer{background:var(--brown);color:rgba(255,255,255,.5);position:relative;z-index:1;}
+.footer-main{max-width:1200px;margin:0 auto;padding:4rem 2rem 3rem;display:flex;justify-content:space-between;align-items:flex-start;gap:3rem;flex-wrap:wrap;}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:white;margin-bottom:.5rem;letter-spacing:.04em;}
+.footer-logo em{font-style:italic;color:var(--rose-l);}
+.footer-desc{font-size:.82rem;max-width:260px;line-height:1.9;margin-bottom:1.5rem;}
+.footer-social{display:flex;gap:.75rem;}
+.footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .3s ease;}
+.footer-social a:hover{background:rgba(200,112,126,.2);border-color:var(--rose-l);}
+.footer-nav{display:flex;gap:3.5rem;flex-wrap:wrap;}
+.footer-col h4{font-family:var(--font-sans);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:1.25rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.75rem;}
+.footer-col a{font-size:.85rem;color:rgba(255,255,255,.5);transition:color .3s ease;}
+.footer-col a:hover{color:var(--rose-l);}
+.footer-bottom{max-width:1200px;margin:0 auto;padding:1.5rem 2rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.72rem;}
 
 /* =============================================
-   YouTube Modal
+   MODALS
 ============================================= */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(20,10,10,0.85);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  z-index: 900; display: flex; align-items: center; justify-content: center;
-  padding: 1.25rem;
-  opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
-}
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal-box {
-  background: #111; border-radius: 20px;
-  width: 100%; max-width: 860px; position: relative;
-  box-shadow: 0 32px 100px rgba(0,0,0,0.7);
-  transform: scale(0.92) translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  overflow: hidden;
-}
-.modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
-.modal-close {
-  position: absolute; top: 1rem; right: 1rem;
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08); color: white;
-  font-size: 0.9rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s ease; z-index: 2;
-}
-.modal-close:hover { background: rgba(255,255,255,0.2); }
-.yt-iframe-wrap {
-  position: relative; aspect-ratio: 16/9; background: #000;
-}
-.yt-iframe-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.modal-info {
-  padding: 1.25rem 1.5rem; background: #111;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-.modal-info-title { font-family: var(--font-disp); font-size: 1.1rem; font-weight: 400; color: white; margin-bottom: 4px; }
-.modal-info-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+/* YouTube / バナー共通オーバーレイ */
+.modal-ov{position:fixed;inset:0;background:rgba(20,10,10,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:900;display:flex;align-items:center;justify-content:center;padding:1.25rem;opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.modal-ov.open{opacity:1;pointer-events:all;}
+.modal-box-dark{background:#111;border-radius:20px;width:100%;max-width:900px;position:relative;box-shadow:0 32px 100px rgba(0,0,0,.7);transform:scale(.92) translateY(20px);transition:transform .4s cubic-bezier(.34,1.56,.64,1);overflow:hidden;}
+.modal-ov.open .modal-box-dark{transform:scale(1) translateY(0);}
+.modal-close-dark{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:white;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease;z-index:2;}
+.modal-close-dark:hover{background:rgba(255,255,255,.2);}
+.yt-wrap{position:relative;aspect-ratio:16/9;background:#000;}
+.yt-wrap.vertical{aspect-ratio:9/16;max-height:75vh;}
+.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.modal-info{padding:1.1rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);}
+.modal-info-title{font-family:var(--font-disp);font-size:1.1rem;font-weight:400;color:white;margin-bottom:3px;}
+.modal-info-desc{font-size:.8rem;color:rgba(255,255,255,.45);}
 
-/* チラシモーダル */
-.flyer-modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(30,20,20,0.75);
-  backdrop-filter: blur(6px);
-  z-index: 900; display: flex; align-items: center; justify-content: center;
-  padding: 1.25rem;
-  opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
-}
-.flyer-modal-overlay.open { opacity: 1; pointer-events: all; }
-.flyer-modal-box {
-  background: var(--white); border-radius: 24px;
-  padding: 2rem; width: 100%; max-width: 680px;
-  position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.35);
-  transform: scale(0.92) translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  max-height: 92vh; overflow-y: auto;
-}
-.flyer-modal-overlay.open .flyer-modal-box { transform: scale(1) translateY(0); }
-.modal-close-light {
-  position: absolute; top: 1.25rem; right: 1.25rem;
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1.5px solid var(--border); background: var(--cream);
-  color: var(--muted); font-size: 0.9rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s ease; z-index: 2;
-}
-.modal-close-light:hover { background: var(--rose-pale); color: var(--rose); border-color: var(--rose-l); }
-.modal-header { margin-bottom: 1.25rem; padding-right: 2.5rem; }
-.modal-label { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rose); margin-bottom: 4px; }
-.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--text); letter-spacing: -0.01em; }
-.flyer-nav { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; }
-.flyer-nav-btn {
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 1.5px solid var(--border); background: var(--cream);
-  color: var(--text); font-size: 1.3rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s ease; line-height: 1;
-}
-.flyer-nav-btn:hover { background: var(--rose); color: white; border-color: var(--rose); }
-.flyer-counter { font-family: var(--font-sans); font-size: 0.8rem; color: var(--muted); min-width: 50px; text-align: center; }
-.flyer-img-wrap {
-  position: relative; min-height: 100px; text-align: center;
-  margin-bottom: 1.25rem; background: var(--warm);
-  border-radius: 12px; padding: 12px;
-}
-.flyer-loading {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.82rem; color: var(--muted);
-  background: var(--warm); border-radius: 12px;
-  opacity: 0; pointer-events: none; transition: opacity 0.2s;
-}
-.flyer-loading.show { opacity: 1; }
-.flyer-thumbs { display: flex; gap: 0.75rem; justify-content: center; }
-.flyer-thumb {
-  width: 72px; height: 72px; object-fit: cover;
-  border-radius: 8px; border: 2px solid var(--border);
-  cursor: pointer; transition: all 0.3s ease; opacity: 0.65;
-}
-.flyer-thumb:hover { opacity: 1; transform: scale(1.05); }
-.flyer-thumb.active { border-color: var(--rose); opacity: 1; box-shadow: 0 0 0 2px var(--rose-pale); }
+/* バナーモーダル */
+.banner-modal-video{width:100%;height:100%;object-fit:contain;background:#000;display:block;border-radius:0;}
+
+/* チラシモーダル（ライト） */
+.modal-ov-light{position:fixed;inset:0;background:rgba(30,20,20,.75);backdrop-filter:blur(6px);z-index:900;display:flex;align-items:center;justify-content:center;padding:1.25rem;opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.modal-ov-light.open{opacity:1;pointer-events:all;}
+.modal-box-light{background:var(--white);border-radius:24px;padding:2rem;width:100%;max-width:680px;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.35);transform:scale(.92) translateY(20px);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-height:92vh;overflow-y:auto;}
+.modal-ov-light.open .modal-box-light{transform:scale(1) translateY(0);}
+.modal-close-light{position:absolute;top:1.25rem;right:1.25rem;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--cream);color:var(--muted);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease;z-index:2;}
+.modal-close-light:hover{background:var(--rose-pale);color:var(--rose);border-color:var(--rose-l);}
+.modal-hd{margin-bottom:1.25rem;padding-right:2.5rem;}
+.modal-label{font-family:var(--font-sans);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--rose);margin-bottom:4px;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--text);}
+.flyer-nav{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:1rem;}
+.flyer-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:var(--cream);color:var(--text);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease;line-height:1;}
+.flyer-btn:hover{background:var(--rose);color:white;border-color:var(--rose);}
+.flyer-count{font-family:var(--font-sans);font-size:.8rem;color:var(--muted);min-width:50px;text-align:center;}
+.flyer-img-wrap{position:relative;min-height:100px;text-align:center;margin-bottom:1.25rem;background:var(--warm);border-radius:12px;padding:12px;}
+.flyer-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.82rem;color:var(--muted);background:var(--warm);border-radius:12px;opacity:0;pointer-events:none;transition:opacity .2s;}
+.flyer-loading.show{opacity:1;}
+.flyer-thumbs{display:flex;gap:.75rem;justify-content:center;}
+.flyer-thumb{width:72px;height:72px;object-fit:cover;border-radius:8px;border:2px solid var(--border);cursor:pointer;transition:all .3s ease;opacity:.65;}
+.flyer-thumb:hover{opacity:1;transform:scale(1.05);}
+.flyer-thumb.active{border-color:var(--rose);opacity:1;box-shadow:0 0 0 2px var(--rose-pale);}
 
 /* =============================================
    Animations
 ============================================= */
-@keyframes fadeUp { from{opacity:0;transform:translateY(28px);} to{opacity:1;transform:translateY(0);} }
-@keyframes fadeIn  { from{opacity:0;} to{opacity:1;} }
-.reveal { opacity:0; transform:translateY(28px); transition:opacity .8s ease,transform .8s ease; }
-.reveal.visible { opacity:1; transform:translateY(0); }
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
 
 /* =============================================
    Responsive
 ============================================= */
-@media (max-width: 960px) {
-  .about__inner { grid-template-columns: 1fr; gap: 3rem; }
-  .services__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
-  .works-grid, .yt-grid { grid-template-columns: repeat(2,1fr); }
-  .hero__floral, .hero__stats { display: none; }
-  .header__nav { display: none; }
-  .footer__main { flex-direction: column; gap: 2.5rem; }
-  .footer__nav { flex-wrap: wrap; gap: 2rem; }
+@media(max-width:1000px){
+  .about__inner{grid-template-columns:1fr;gap:3rem;}
+  .svc-grid{grid-template-columns:repeat(2,1fr);}
+  .card-grid{grid-template-columns:repeat(2,1fr);}
+  .hero__floral,.hero-stats{display:none;}
+  .nav{display:none;}
+  .footer-main{flex-direction:column;gap:2.5rem;}
+  .footer-nav{gap:2rem;}
 }
-@media (max-width: 600px) {
-  .works-grid, .yt-grid { grid-template-columns: 1fr; }
-  .hero__title { font-size: 2.8rem; }
-  .hero__btns, .cta__links { flex-direction: column; align-items: flex-start; }
-  .footer__bottom { flex-direction: column; }
+@media(max-width:600px){
+  .card-grid{grid-template-columns:1fr;}
+  .svc-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:2.8rem;}
+  .hero-btns,.cta-btns{flex-direction:column;align-items:flex-start;}
+  .footer-bottom{flex-direction:column;}
 }
   </style>
 </head>
-
 <body>
 
 <!-- ===================== HEADER ===================== -->
 <header class="header" id="siteHeader">
   <div class="header__inner">
-    <a href="#" class="header__logo">
-      <span class="header__logo-main">Lazzlly <em>Lab.</em></span>
-      <span class="header__logo-sub">Web Design & Creative</span>
+    <a href="#" class="logo">
+      <span class="logo-main">Lazzlly <em>Lab.</em></span>
+      <span class="logo-sub">Web Design & Creative</span>
     </a>
-    <nav class="header__nav">
+    <nav class="nav">
       <a href="#about">About</a>
-      <a href="#main-works">Main Works</a>
-      <a href="#sub-works">Sub Works</a>
+      <a href="#lp">LP制作</a>
+      <a href="#banner">バナー</a>
+      <a href="#flyer">チラシ</a>
+      <a href="#video">動画</a>
       <a href="#contact">Contact</a>
-      <a href="https://github.com/AkiraMihara1289/MyPortfolio" target="_blank" rel="noopener" class="header__cta">GitHub →</a>
+      <a href="https://github.com/AkiraMihara1289/MyPortfolio" target="_blank" rel="noopener" class="nav-cta">GitHub →</a>
     </nav>
   </div>
 </header>
@@ -851,97 +404,64 @@ body::before {
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="top">
   <div class="hero__bg"></div>
-  <div class="hero__blob hero__blob-1"></div>
-  <div class="hero__blob hero__blob-2"></div>
-  <div class="hero__blob hero__blob-3"></div>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
 
   <div class="hero__floral">
-    <svg viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg" style="max-width:480px;opacity:0.85;">
-      <defs>
-        <radialGradient id="bg1" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#F9EEF0" stop-opacity="0.8"/>
-          <stop offset="100%" stop-color="#F9EEF0" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
+    <svg viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg" style="max-width:480px;opacity:.85;">
+      <defs><radialGradient id="bg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#F9EEF0" stop-opacity=".8"/><stop offset="100%" stop-color="#F9EEF0" stop-opacity="0"/></radialGradient></defs>
       <circle cx="280" cy="280" r="240" fill="url(#bg1)"/>
-      <g transform="translate(280,200)" opacity="0.9">
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(0)"/>
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(45)"/>
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#EFBBC4" transform="rotate(90)"/>
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(135)"/>
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#EFBBC4" transform="rotate(180)"/>
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(225)"/>
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#EFBBC4" transform="rotate(270)"/>
-        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(315)"/>
-        <circle cx="0" cy="0" r="22" fill="#F9D0D8"/>
-        <circle cx="0" cy="0" r="12" fill="#C8707E"/>
+      <g transform="translate(280,200)" opacity=".9">
+        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(0)"/><ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#EFBBC4" transform="rotate(90)"/><ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#EFBBC4" transform="rotate(180)"/><ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-55" rx="18" ry="38" fill="#EFBBC4" transform="rotate(270)"/><ellipse cx="0" cy="-55" rx="18" ry="38" fill="#E8A4B0" transform="rotate(315)"/>
+        <circle cx="0" cy="0" r="22" fill="#F9D0D8"/><circle cx="0" cy="0" r="12" fill="#C8707E"/>
       </g>
-      <g transform="translate(170,340)" opacity="0.75">
-        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#B8CCC0" transform="rotate(0)"/>
-        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#C4D4CC" transform="rotate(60)"/>
-        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#B8CCC0" transform="rotate(120)"/>
-        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#C4D4CC" transform="rotate(180)"/>
-        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#B8CCC0" transform="rotate(240)"/>
-        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#C4D4CC" transform="rotate(300)"/>
-        <circle cx="0" cy="0" r="16" fill="#D4E0DC"/>
-        <circle cx="0" cy="0" r="8" fill="#7D9E8C"/>
+      <g transform="translate(170,340)" opacity=".75">
+        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#B8CCC0" transform="rotate(0)"/><ellipse cx="0" cy="-38" rx="13" ry="26" fill="#C4D4CC" transform="rotate(60)"/>
+        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#B8CCC0" transform="rotate(120)"/><ellipse cx="0" cy="-38" rx="13" ry="26" fill="#C4D4CC" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-38" rx="13" ry="26" fill="#B8CCC0" transform="rotate(240)"/><ellipse cx="0" cy="-38" rx="13" ry="26" fill="#C4D4CC" transform="rotate(300)"/>
+        <circle cx="0" cy="0" r="16" fill="#D4E0DC"/><circle cx="0" cy="0" r="8" fill="#7D9E8C"/>
       </g>
-      <g transform="translate(380,360)" opacity="0.7">
-        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#C8B8D8" transform="rotate(0)"/>
-        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#D4C4E0" transform="rotate(60)"/>
-        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#C8B8D8" transform="rotate(120)"/>
-        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#D4C4E0" transform="rotate(180)"/>
-        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#C8B8D8" transform="rotate(240)"/>
-        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#D4C4E0" transform="rotate(300)"/>
-        <circle cx="0" cy="0" r="12" fill="#DCD0E8"/>
-        <circle cx="0" cy="0" r="6" fill="#A898BC"/>
+      <g transform="translate(380,360)" opacity=".7">
+        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#C8B8D8" transform="rotate(0)"/><ellipse cx="0" cy="-28" rx="10" ry="20" fill="#D4C4E0" transform="rotate(60)"/>
+        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#C8B8D8" transform="rotate(120)"/><ellipse cx="0" cy="-28" rx="10" ry="20" fill="#D4C4E0" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-28" rx="10" ry="20" fill="#C8B8D8" transform="rotate(240)"/><ellipse cx="0" cy="-28" rx="10" ry="20" fill="#D4C4E0" transform="rotate(300)"/>
+        <circle cx="0" cy="0" r="12" fill="#DCD0E8"/><circle cx="0" cy="0" r="6" fill="#A898BC"/>
       </g>
-      <ellipse cx="220" cy="290" rx="22" ry="10" fill="#8FAB98" transform="rotate(-30, 220, 290)" opacity="0.6"/>
-      <ellipse cx="335" cy="270" rx="18" ry="8" fill="#7D9E8C" transform="rotate(20, 335, 270)" opacity="0.6"/>
-      <ellipse cx="200" cy="190" rx="16" ry="7" fill="#A0B8A8" transform="rotate(-50, 200, 190)" opacity="0.55"/>
-      <ellipse cx="360" cy="180" rx="14" ry="6" fill="#8FAB98" transform="rotate(40, 360, 180)" opacity="0.55"/>
+      <ellipse cx="220" cy="290" rx="22" ry="10" fill="#8FAB98" transform="rotate(-30,220,290)" opacity=".6"/>
+      <ellipse cx="335" cy="270" rx="18" ry="8"  fill="#7D9E8C" transform="rotate(20,335,270)"  opacity=".6"/>
+      <ellipse cx="200" cy="190" rx="16" ry="7"  fill="#A0B8A8" transform="rotate(-50,200,190)" opacity=".55"/>
+      <ellipse cx="360" cy="180" rx="14" ry="6"  fill="#8FAB98" transform="rotate(40,360,180)"  opacity=".55"/>
     </svg>
   </div>
 
   <div class="hero__content">
-    <p class="hero__eyebrow">
-      <span class="hero__eyebrow-dot"></span>
-      Web Design Portfolio
-    </p>
-    <h1 class="hero__title">
-      Design &amp;<br />
+    <p class="eyebrow"><span class="eyebrow-dot"></span>Web Design Portfolio</p>
+    <h1 class="hero-title">
+      Design &amp;<br/>
       <em>Create,</em>
       <span>心を動かすデザインを。</span>
     </h1>
-    <p class="hero__desc">
-      LP制作・チラシ・バナー制作を軸に、<br />
-      「伝わる」ビジュアルを丁寧に手がける<br />
+    <p class="hero-desc">
+      LP制作・Webバナー・チラシデザインを軸に、<br/>
+      「伝わる」ビジュアルを丁寧に手がける<br/>
       Webクリエイター Lazzlly Lab. のポートフォリオ。
     </p>
-    <div class="hero__btns">
-      <a href="#main-works" class="btn btn--rose">Main Works を見る →</a>
+    <div class="hero-btns">
+      <a href="#lp" class="btn btn--rose">作品を見る →</a>
       <a href="https://github.com/AkiraMihara1289/MyPortfolio" target="_blank" rel="noopener" class="btn btn--outline">GitHub Profile</a>
     </div>
   </div>
 
-  <div class="hero__scroll">
-    <span>Scroll</span>
-    <div class="hero__scroll-line"></div>
-  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="hero-scroll-line"></div></div>
 
-  <div class="hero__stats">
-    <div class="hero__stat">
-      <strong>6<span style="font-size:1.2rem;color:var(--muted);">+</span></strong>
-      <span>Main Works</span>
-    </div>
-    <div class="hero__stat">
-      <strong>3</strong>
-      <span>Sub Works</span>
-    </div>
-    <div class="hero__stat">
-      <strong>2025</strong>
-      <span>Year</span>
-    </div>
+  <div class="hero-stats">
+    <div><strong>6<span style="font-size:1.1rem;color:var(--muted);">+</span></strong><span>LP Works</span></div>
+    <div><strong>3</strong><span>Banners</span></div>
+    <div><strong>3</strong><span>Flyers</span></div>
   </div>
 </section>
 
@@ -949,42 +469,41 @@ body::before {
 <section class="about" id="about">
   <div class="about__inner">
     <div class="reveal">
-      <p class="tag-label" style="margin-bottom:0.75rem;">About</p>
-      <h2 class="section-title" style="margin-bottom:1.5rem;">デザインで、<br /><em>想いを形に。</em></h2>
+      <p class="tag-label" style="margin-bottom:.75rem;">About</p>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">デザインで、<br/><em>想いを形に。</em></h2>
       <div class="about__text">
-        <p>はじめまして、Lazzlly Lab. です。LP制作・チラシ・バナー制作を中心に、クライアントの魅力を最大限に引き出すビジュアルコミュニケーションを手がけています。</p>
-        <p>「見やすい・伝わる・思わずクリックしたくなる」デザインを目指し、HTML・CSS・JavaScriptを使ったコーディングから印刷物まで幅広く対応。動画制作はサブスキルとして取り組んでいます。</p>
+        <p>はじめまして、Lazzlly Lab. です。LP制作・Webアニメーションバナー・チラシデザインを中心に、クライアントの魅力を最大限に引き出すビジュアルコミュニケーションを手がけています。</p>
+        <p>「見やすい・伝わる・思わず止まって見てしまう」デザインを目指し、コーディングから印刷物・動画まで幅広く対応しています。</p>
       </div>
-      <div class="about__skills">
-        <span class="skill-chip">HTML / CSS</span>
-        <span class="skill-chip">JavaScript</span>
-        <span class="skill-chip">Responsive Design</span>
-        <span class="skill-chip">LP制作</span>
-        <span class="skill-chip">チラシ・バナー</span>
-        <span class="skill-chip">グラフィックデザイン</span>
-        <span class="skill-chip">SVGアニメーション</span>
-        <span class="skill-chip">UX/UIデザイン</span>
-        <span class="skill-chip">GitHub Pages</span>
-        <span class="skill-chip">動画編集（サブ）</span>
+      <div class="chips">
+        <span class="chip">HTML / CSS</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">LP制作</span>
+        <span class="chip">Webアニメーションバナー</span>
+        <span class="chip">チラシ・フライヤー</span>
+        <span class="chip">Responsive Design</span>
+        <span class="chip">SVGアニメーション</span>
+        <span class="chip">UX/UIデザイン</span>
+        <span class="chip">GitHub Pages</span>
+        <span class="chip">動画編集（サブ）</span>
       </div>
     </div>
-
-    <div class="about__visual reveal">
-      <div class="about__deco-1"></div>
-      <div class="about__deco-2"></div>
+    <div style="position:relative;" class="reveal">
+      <div class="about-deco1"></div>
+      <div class="about-deco2"></div>
       <div class="about__card">
-        <div class="about__card-profile">
-          <div class="about__avatar">🌸</div>
+        <div class="about-profile">
+          <div class="avatar">🌸</div>
           <div>
-            <p class="about__name">Lazzlly <em style="font-style:italic;color:var(--rose);">Lab.</em></p>
-            <p class="about__name-sub">Web Creator</p>
+            <p class="aname">Lazzlly <em style="font-style:italic;color:var(--rose);">Lab.</em></p>
+            <p class="aname-sub">Web Creator</p>
           </div>
         </div>
-        <ul class="about__info-list">
+        <ul class="info-list">
           <li><span>💻</span><span>LP / Webサイト制作（メイン）</span></li>
-          <li><span>🎨</span><span>チラシ・バナーデザイン（メイン）</span></li>
+          <li><span>🎞️</span><span>Webアニメーションバナー制作（メイン）</span></li>
+          <li><span>🎨</span><span>チラシ・フライヤーデザイン（メイン）</span></li>
           <li><span>🎬</span><span>動画編集・映像制作（サブ）</span></li>
-          <li><span>📱</span><span>レスポンシブデザイン対応</span></li>
           <li><span>🌐</span><span>GitHub Pages で公開・納品</span></li>
         </ul>
       </div>
@@ -995,627 +514,613 @@ body::before {
 <!-- ===================== SERVICES ===================== -->
 <section class="services">
   <div class="services__inner">
-    <div class="services__header reveal">
-      <p class="tag-label" style="justify-content:center;margin-bottom:0.6rem;">Services</p>
+    <div class="services-header reveal">
+      <p class="tag-label" style="justify-content:center;margin-bottom:.6rem;">Services</p>
       <h2 class="section-title" style="text-align:center;">できることを、<em>全力で。</em></h2>
-      <p>メインスキルを軸に、サブスキルも含めて幅広くサポートします。</p>
+      <p>メインスキルを軸に、幅広いクリエイティブでサポートします。</p>
     </div>
 
-    <!-- Main Services -->
-    <p class="services__group-title main reveal">🌸 Main — LP制作 / チラシ / バナー</p>
-    <div class="services__grid">
-      <div class="service-card reveal">
-        <div class="service-card__icon">💻</div>
-        <h3 class="service-card__title">LP / Web制作</h3>
-        <p class="service-card__desc">HTML・CSS・JSのみで制作する、表示が速くSEOにも強いランディングページ。各業種・ターゲットに合わせたデザインを提供します。</p>
-        <div class="service-card__count">06 <small>works</small></div>
+    <p class="group-head main reveal">🌸 Main Works — LP制作 / バナー / チラシ</p>
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon">💻</div>
+        <h3 class="svc-title">LP / Web制作</h3>
+        <p class="svc-desc">HTML・CSS・JSのみで制作する、表示が速くSEOに強いランディングページ。各業種・ターゲットに合わせたデザインを提供。</p>
+        <div class="svc-count">06 <small>works</small></div>
       </div>
-      <div class="service-card reveal" style="transition-delay:0.1s;">
-        <div class="service-card__icon">🎨</div>
-        <h3 class="service-card__title">チラシ・フライヤー</h3>
-        <p class="service-card__desc">印刷・デジタル配布に対応したフライヤーデザイン。ブランドイメージを統一した仕上がりをお届けします。</p>
-        <div class="service-card__count">03 <small>works</small></div>
+      <div class="svc-card reveal" style="transition-delay:.08s;">
+        <div class="svc-icon">🎞️</div>
+        <h3 class="svc-title">Webアニメーションバナー</h3>
+        <p class="svc-desc">SNS広告・サービス紹介などのアニメーションバナー動画を制作。動きで目を惹くビジュアル広告で訴求力を高めます。</p>
+        <div class="svc-count">03 <small>works</small></div>
       </div>
-      <div class="service-card reveal" style="transition-delay:0.2s;">
-        <div class="service-card__icon">🖼️</div>
-        <h3 class="service-card__title">バナー制作</h3>
-        <p class="service-card__desc">SNS広告・Web広告・ヘッダー画像などのバナー制作。クリック率を高めるビジュアル設計でご提案します。</p>
-        <div class="service-card__count">— <small>制作中</small></div>
+      <div class="svc-card reveal" style="transition-delay:.16s;">
+        <div class="svc-icon">🎨</div>
+        <h3 class="svc-title">チラシ・フライヤー</h3>
+        <p class="svc-desc">印刷・デジタル配布に対応したフライヤーデザイン。ブランドイメージに合わせた統一感のある仕上がりをお届けします。</p>
+        <div class="svc-count">03 <small>works</small></div>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.24s;">
+        <div class="svc-icon">🖼️</div>
+        <h3 class="svc-title">バナー広告・静止画</h3>
+        <p class="svc-desc">Web広告・SNS投稿・ヘッダー画像などの静止バナーも対応。クリック率を高めるビジュアル設計でご提案します。</p>
+        <div class="svc-count">— <small>承り中</small></div>
       </div>
     </div>
 
-    <!-- Sub Services -->
-    <p class="services__group-title sub reveal">📽 Sub — 動画制作</p>
-    <div class="services__grid services__grid sub-grid">
-      <div class="service-card sub-card reveal" style="max-width:600px;">
-        <div class="service-card__icon">🎬</div>
-        <h3 class="service-card__title">動画編集・映像制作</h3>
-        <p class="service-card__desc">商品PR・サービス紹介・SNS向けショート動画など。目を惹く映像で訴求力を高めます。メインスキルのLP制作と組み合わせてのご依頼も歓迎します。</p>
-        <div class="service-card__count">03 <small>works</small></div>
+    <p class="group-head sub reveal">📽 Sub Works — 動画制作</p>
+    <div class="svc-grid svc-grid-sub">
+      <div class="svc-card svc-card-sub reveal">
+        <div class="svc-icon">🎬</div>
+        <h3 class="svc-title">動画編集・映像制作</h3>
+        <p class="svc-desc">商品PR・サービス紹介・SNS向けショート動画など。動画制作はサブスキルとして取り組んでいます。メイン制作との組み合わせでのご依頼も歓迎します。</p>
+        <div class="svc-count">03 <small>works</small></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===================== MAIN WORKS ===================== -->
-<section class="works-main" id="main-works">
-  <div class="works-main__inner">
-    <div class="works-header reveal">
-      <div>
-        <p class="tag-label" style="margin-bottom:0.5rem;">Main Works</p>
-        <h2 class="section-title"><em>LP制作 / チラシ</em></h2>
+<div class="works-area">
+  <div class="works-inner">
+
+    <!-- ① LP制作 -->
+    <div class="works-block" id="lp">
+      <div class="works-block-header reveal">
+        <div class="works-block-header-left">
+          <span class="cat-badge lp">01 / LP制作</span>
+          <h2 class="section-title">Landing Page <em>Works</em></h2>
+        </div>
+        <div class="filter-wrap">
+          <button class="filter-btn active" data-filter="all">すべて</button>
+          <button class="filter-btn" data-filter="restaurant">飲食店</button>
+          <button class="filter-btn" data-filter="service">サービス</button>
+          <button class="filter-btn" data-filter="travel">旅行</button>
+        </div>
       </div>
-      <div class="works-filters">
-        <button class="filter-btn active" data-filter="all">すべて</button>
-        <button class="filter-btn" data-filter="lp">LP制作</button>
-        <button class="filter-btn" data-filter="print">チラシ・バナー</button>
+
+      <div class="card-grid" id="lpGrid">
+
+        <a href="https://akiramihara1289.github.io/MyPortfolio/restaurant-lp/" target="_blank" rel="noopener" class="wcard reveal" data-lp="restaurant">
+          <div class="wcard__thumb">
+            <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg"><rect width="480" height="270" fill="#0f0d0a"/><defs><radialGradient id="wm1" cx="25%" cy="55%" r="65%"><stop offset="0%" stop-color="#c9a96e" stop-opacity=".1"/><stop offset="100%" stop-color="#0f0d0a" stop-opacity="0"/></radialGradient></defs><rect width="480" height="270" fill="url(#wm1)"/><line x1="0" y1="54" x2="480" y2="54" stroke="#2a2418" stroke-width=".5"/><line x1="0" y1="108" x2="480" y2="108" stroke="#2a2418" stroke-width=".5"/><line x1="0" y1="162" x2="480" y2="162" stroke="#2a2418" stroke-width=".5"/><line x1="96" y1="0" x2="96" y2="270" stroke="#2a2418" stroke-width=".5"/><line x1="288" y1="0" x2="288" y2="270" stroke="#2a2418" stroke-width=".5"/><circle cx="360" cy="135" r="90" fill="none" stroke="#c9a96e" stroke-width=".5" opacity=".3"/><path d="M343 80 L377 80 Q390 110 377 128 L368 133 L368 165 L360 165 L360 133 L352 128 Q339 110 343 80 Z" fill="none" stroke="#c9a96e" stroke-width="1" opacity=".55"/><text x="40" y="185" font-family="Georgia,serif" font-size="28" font-weight="300" fill="#c9a96e" letter-spacing="4">LA MAISON</text><text x="42" y="205" font-family="Georgia,serif" font-size="10" fill="#7a6a50" letter-spacing="3.5">FRENCH BISTRO &amp; WINE BAR</text></svg>
+            <div class="wcard__overlay"><span class="overlay-label">View Site ↗</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat">LP制作 / 飲食店</p>
+            <h3 class="wcard__title">フレンチレストランLP「LA MAISON」</h3>
+            <p class="wcard__desc">ディープブラック×ゴールドでエレガントな世界観を演出。メニュータブ切り替えとスクロールアニメーション実装。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">HTML/CSS/JS</span><span class="tag">飲食店</span></div><span class="wcard__arrow">↗</span></div>
+          </div>
+        </a>
+
+        <a href="https://akiramihara1289.github.io/MyPortfolio/pet-cafe-lp/" target="_blank" rel="noopener" class="wcard reveal" data-lp="restaurant" style="transition-delay:.08s;">
+          <div class="wcard__thumb" style="background:#FFFAF3;">
+            <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg"><rect width="480" height="270" fill="#FFFAF3"/><circle cx="240" cy="120" r="100" fill="#FFF3E8" opacity=".8"/><g transform="translate(108,115)"><circle cx="40" cy="50" r="32" fill="#F5D0A9"/><circle cx="40" cy="20" r="28" fill="#F5D0A9"/><polygon points="16,6 4,-12 28,4" fill="#F5D0A9"/><polygon points="64,6 76,-12 52,4" fill="#F5D0A9"/><polygon points="18,4 8,-8 26,2" fill="#FFB6C1"/><polygon points="62,4 72,-8 54,2" fill="#FFB6C1"/><circle cx="27" cy="14" r="7" fill="#fff"/><circle cx="53" cy="14" r="7" fill="#fff"/><circle cx="29" cy="16" r="4" fill="#5C3D2E"/><circle cx="55" cy="16" r="4" fill="#5C3D2E"/></g><g transform="translate(270,100)"><ellipse cx="50" cy="95" rx="38" ry="44" fill="#E8C070"/><circle cx="50" cy="50" r="36" fill="#EACA70"/><ellipse cx="50" cy="64" rx="24" ry="18" fill="#F0D888"/><circle cx="33" cy="40" r="8" fill="#fff"/><circle cx="67" cy="40" r="8" fill="#fff"/><circle cx="35" cy="42" r="5" fill="#5C3D2E"/><circle cx="69" cy="42" r="5" fill="#5C3D2E"/></g><text x="240" y="252" text-anchor="middle" font-family="Georgia,cursive" font-size="18" fill="#C9845A">Paws &amp; Plates</text></svg>
+            <div class="wcard__overlay"><span class="overlay-label">View Site ↗</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat">LP制作 / 飲食店</p>
+            <h3 class="wcard__title">ペットカフェLP「Paws & Plates」</h3>
+            <p class="wcard__desc">猫・犬が歩き回るほっこり空間のLP。クリーム×テラコッタのあたたかいデザイン。クリックで肉球エフェクト演出。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">HTML/CSS/JS</span><span class="tag">飲食店</span></div><span class="wcard__arrow">↗</span></div>
+          </div>
+        </a>
+
+        <a href="https://akiramihara1289.github.io/MyPortfolio/freezer-cooking/" target="_blank" rel="noopener" class="wcard reveal" data-lp="service" style="transition-delay:.16s;">
+          <div class="wcard__thumb">
+            <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg"><rect width="480" height="270" fill="#1A1A2E"/><defs><radialGradient id="wf1" cx="72%" cy="28%" r="55%"><stop offset="0%" stop-color="#ff6b35" stop-opacity=".14"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><rect width="480" height="270" fill="url(#wf1)"/><rect x="190" y="55" width="100" height="135" rx="8" fill="rgba(46,196,182,.08)" stroke="#2EC4B6" stroke-width="1" stroke-dasharray="4,3"/><circle cx="228" cy="112" r="16" fill="#FF6B35" opacity=".7"/><circle cx="252" cy="106" r="13" fill="#FFE66D" opacity=".7"/><text x="40" y="105" font-family="sans-serif" font-size="28" font-weight="700" fill="#FF6B35" opacity=".9">冷凍ミール</text><text x="40" y="138" font-family="sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".85">プレップ</text><text x="40" y="162" font-family="sans-serif" font-size="11" fill="#2EC4B6" letter-spacing="2.5" opacity=".8">COOKING CHANNEL</text></svg>
+            <div class="wcard__overlay"><span class="overlay-label">View Site ↗</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat">LP制作 / 料理チャンネル</p>
+            <h3 class="wcard__title">冷凍ミールプレップ料理チャンネル</h3>
+            <p class="wcard__desc">オレンジ×ティールの鮮やかな配色で視覚的インパクトを演出した時短料理チャンネルのLP。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">HTML/CSS/JS</span><span class="tag">料理</span></div><span class="wcard__arrow">↗</span></div>
+          </div>
+        </a>
+
+        <a href="https://akiramihara1289.github.io/MyPortfolio/cleaning-shop/" target="_blank" rel="noopener" class="wcard reveal" data-lp="service">
+          <div class="wcard__thumb" style="background:#f0f4fa;">
+            <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg"><rect width="480" height="270" fill="#f0f4fa"/><circle cx="360" cy="70" r="48" fill="rgba(0,102,255,.05)"/><rect x="320" y="92" width="38" height="95" rx="8" fill="#0066ff" opacity=".85"/><path d="M358 108 L385 97 L390 108 L358 120 Z" fill="#0066ff" opacity=".85"/><rect x="40" y="75" width="120" height="30" rx="15" fill="rgba(0,102,255,.07)" stroke="rgba(0,102,255,.18)" stroke-width="1"/><text x="56" y="96" font-family="sans-serif" font-size="13" fill="#0066ff" font-weight="600">✓ プロ品質</text><rect x="40" y="118" width="130" height="30" rx="15" fill="rgba(0,184,148,.07)" stroke="rgba(0,184,148,.18)" stroke-width="1"/><text x="56" y="138" font-family="sans-serif" font-size="13" fill="#00b894" font-weight="600">✓ 即日発送</text><text x="40" y="60" font-family="sans-serif" font-size="24" font-weight="700" fill="#0066ff">CleanPro</text></svg>
+            <div class="wcard__overlay"><span class="overlay-label">View Site ↗</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat">LP制作 / ECサイト</p>
+            <h3 class="wcard__title">クリーニング店LP「CleanPro」</h3>
+            <p class="wcard__desc">クリーンなブルー系カラーで清潔感を表現したハウスクリーニング用品ECサイトのLP。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">HTML/CSS/JS</span><span class="tag">EC</span></div><span class="wcard__arrow">↗</span></div>
+          </div>
+        </a>
+
+        <a href="https://akiramihara1289.github.io/MyPortfolio/ai-coding-course/" target="_blank" rel="noopener" class="wcard reveal" data-lp="service" style="transition-delay:.08s;">
+          <div class="wcard__thumb">
+            <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg"><rect width="480" height="270" fill="#0a0b14"/><defs><radialGradient id="wai1" cx="62%" cy="38%" r="55%"><stop offset="0%" stop-color="#6c63ff" stop-opacity=".13"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><rect width="480" height="270" fill="url(#wai1)"/><rect x="30" y="48" width="225" height="148" rx="8" fill="#11131f" stroke="rgba(255,255,255,.07)" stroke-width="1"/><rect x="30" y="48" width="225" height="26" rx="8" fill="#181b2e"/><circle cx="48" cy="61" r="4" fill="#ff6b6b"/><circle cx="62" cy="61" r="4" fill="#FFE66D"/><circle cx="76" cy="61" r="4" fill="#43e97b"/><rect x="46" y="88" width="32" height="6" rx="3" fill="#6c63ff" opacity=".8"/><rect x="84" y="88" width="58" height="6" rx="3" fill="#e8eaf6" opacity=".35"/><rect x="46" y="104" width="22" height="6" rx="3" fill="#00d4ff" opacity=".7"/><rect x="56" y="120" width="62" height="6" rx="3" fill="#ff6b6b" opacity=".6"/><g opacity=".75"><circle cx="310" cy="72" r="8" fill="#6c63ff"/><circle cx="350" cy="102" r="8" fill="#00d4ff"/><circle cx="390" cy="88" r="8" fill="#43e97b"/><circle cx="435" cy="118" r="10" fill="#6c63ff"/><line x1="318" y1="72" x2="342" y2="98" stroke="#6c63ff" stroke-width=".8" opacity=".5"/><line x1="398" y1="85" x2="425" y2="112" stroke="#43e97b" stroke-width=".8" opacity=".5"/></g></svg>
+            <div class="wcard__overlay"><span class="overlay-label">View Site ↗</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat">LP制作 / 教育</p>
+            <h3 class="wcard__title">AIコーディングコース</h3>
+            <p class="wcard__desc">ダーク×パープル×シアンの先進的なデザイン。コードアニメーション・ニューラルネットイラスト実装。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">HTML/CSS/JS</span><span class="tag">教育</span></div><span class="wcard__arrow">↗</span></div>
+          </div>
+        </a>
+
+        <a href="https://akiramihara1289.github.io/MyPortfolio/hawaii-lp/" target="_blank" rel="noopener" class="wcard reveal" data-lp="travel" style="transition-delay:.16s;">
+          <div class="wcard__thumb">
+            <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wh1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffcf77"/><stop offset="30%" stop-color="#ff9a5c"/><stop offset="55%" stop-color="#e05a8a"/><stop offset="80%" stop-color="#4a90d9"/><stop offset="100%" stop-color="#0077b6"/></linearGradient></defs><rect width="480" height="270" fill="url(#wh1)"/><circle cx="240" cy="88" r="32" fill="rgba(255,240,100,.9)"/><circle cx="240" cy="88" r="24" fill="#ffe566"/><rect x="0" y="178" width="480" height="92" fill="#0077b6"/><path d="M0 270 L0 220 Q80 208 160 216 Q240 224 320 212 Q400 200 480 214 L480 270 Z" fill="#f4d59f"/><text x="178" y="158" font-family="Georgia,serif" font-size="26" fill="rgba(255,255,255,.9)" letter-spacing="2">Aloha Hawaii</text></svg>
+            <div class="wcard__overlay"><span class="overlay-label">View Site ↗</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat">LP制作 / 旅行</p>
+            <h3 class="wcard__title">ハワイ旅行LP</h3>
+            <p class="wcard__desc">サンセットグラデーション×トロピカルな世界観。SVGで情景を全描画し没入感を演出した旅行会社LP。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">HTML/CSS/JS</span><span class="tag">旅行</span></div><span class="wcard__arrow">↗</span></div>
+          </div>
+        </a>
+
+      </div><!-- /lpGrid -->
+    </div>
+
+    <!-- ② バナー制作 -->
+    <div class="works-block" id="banner">
+      <div class="works-block-header reveal">
+        <div class="works-block-header-left">
+          <span class="cat-badge banner">02 / Webアニメーションバナー</span>
+          <h2 class="section-title">Banner <em>Works</em></h2>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);max-width:300px;line-height:1.7;">カードにカーソルを合わせると<br/>アニメーションが再生されます。</p>
+      </div>
+
+      <div class="card-grid">
+
+        <div class="bcard reveal" onclick="openBannerModal('https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Black%20Gold%20Animated%20Collage%20Birthday%20Video.mp4','バースデー アニメーションバナー','ブラック×ゴールドの高級感あるアニメーションコラージュバナー。誕生日お祝い向けSNS広告・動画バナーとして制作。')">
+          <div class="bcard__thumb">
+            <video class="bcard__video" muted loop playsinline preload="none"
+                   data-src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Black%20Gold%20Animated%20Collage%20Birthday%20Video.mp4">
+              <source data-src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Black%20Gold%20Animated%20Collage%20Birthday%20Video.mp4" type="video/mp4">
+            </video>
+            <div class="bcard__overlay"><span class="overlay-label" style="color:white;border-color:rgba(255,255,255,.5);">拡大して見る ↗</span></div>
+          </div>
+          <div class="bcard__body">
+            <p class="bcard__cat">Webアニメーションバナー</p>
+            <h3 class="bcard__title">バースデー アニメーションバナー</h3>
+            <p class="bcard__desc">ブラック×ゴールドの高級感あるコラージュアニメーション。誕生日お祝い向けのSNS動画広告として制作。</p>
+            <div class="bcard__foot"><div class="bcard__tags"><span class="btag">アニメーション</span><span class="btag">Birthday</span></div><span class="bcard__arrow">▶</span></div>
+          </div>
+        </div>
+
+        <div class="bcard reveal" style="transition-delay:.1s;" onclick="openBannerModal('https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Black%20Yellow%20Meet%20Team%20Luxury%20Corporate%20Lawyer%20Business%20Video.mp4','コーポレート チームバナー','ブラック×イエローのラグジュアリーなコーポレートバナー。企業・法律事務所・チーム紹介向けの動画バナーとして制作。')">
+          <div class="bcard__thumb">
+            <video class="bcard__video" muted loop playsinline preload="none"
+                   data-src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Black%20Yellow%20Meet%20Team%20Luxury%20Corporate%20Lawyer%20Business%20Video.mp4">
+              <source data-src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Black%20Yellow%20Meet%20Team%20Luxury%20Corporate%20Lawyer%20Business%20Video.mp4" type="video/mp4">
+            </video>
+            <div class="bcard__overlay"><span class="overlay-label" style="color:white;border-color:rgba(255,255,255,.5);">拡大して見る ↗</span></div>
+          </div>
+          <div class="bcard__body">
+            <p class="bcard__cat">Webアニメーションバナー</p>
+            <h3 class="bcard__title">コーポレート チームバナー</h3>
+            <p class="bcard__desc">ブラック×イエローのラグジュアリーなコーポレートデザイン。企業・法律事務所・チーム紹介向けの動画バナー。</p>
+            <div class="bcard__foot"><div class="bcard__tags"><span class="btag">アニメーション</span><span class="btag">Business</span></div><span class="bcard__arrow">▶</span></div>
+          </div>
+        </div>
+
+        <div class="bcard reveal" style="transition-delay:.2s;" onclick="openBannerModal('https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Green%20Thank%20You%20Minimalist%20Business%20Furniture%20%26%20Interior%20Design%20Video.mp4','インテリアデザイン サンクスバナー','グリーン×ミニマルデザインのインテリア向けサンクス動画バナー。家具・インテリアビジネスのお礼・感謝メッセージ向け。')">
+          <div class="bcard__thumb">
+            <video class="bcard__video" muted loop playsinline preload="none"
+                   data-src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Green%20Thank%20You%20Minimalist%20Business%20Furniture%20%26%20Interior%20Design%20Video.mp4">
+              <source data-src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/banar/Green%20Thank%20You%20Minimalist%20Business%20Furniture%20%26%20Interior%20Design%20Video.mp4" type="video/mp4">
+            </video>
+            <div class="bcard__overlay"><span class="overlay-label" style="color:white;border-color:rgba(255,255,255,.5);">拡大して見る ↗</span></div>
+          </div>
+          <div class="bcard__body">
+            <p class="bcard__cat">Webアニメーションバナー</p>
+            <h3 class="bcard__title">インテリアデザイン サンクスバナー</h3>
+            <p class="bcard__desc">グリーン×ミニマルなインテリア向けサンクスバナー。家具・インテリアビジネスのお礼・感謝メッセージとして制作。</p>
+            <div class="bcard__foot"><div class="bcard__tags"><span class="btag">アニメーション</span><span class="btag">Interior</span></div><span class="bcard__arrow">▶</span></div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="works-grid" id="worksGrid">
-
-      <!-- 01 LA MAISON -->
-      <a href="https://akiramihara1289.github.io/MyPortfolio/restaurant-lp/" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="lp">
-        <div class="work-card__thumb">
-          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
-            <rect width="480" height="270" fill="#0f0d0a"/>
-            <defs><radialGradient id="wm1" cx="25%" cy="55%" r="65%"><stop offset="0%" stop-color="#c9a96e" stop-opacity="0.1"/><stop offset="100%" stop-color="#0f0d0a" stop-opacity="0"/></radialGradient></defs>
-            <rect width="480" height="270" fill="url(#wm1)"/>
-            <line x1="0" y1="54" x2="480" y2="54" stroke="#2a2418" stroke-width="0.5"/>
-            <line x1="0" y1="108" x2="480" y2="108" stroke="#2a2418" stroke-width="0.5"/>
-            <line x1="0" y1="162" x2="480" y2="162" stroke="#2a2418" stroke-width="0.5"/>
-            <line x1="96" y1="0" x2="96" y2="270" stroke="#2a2418" stroke-width="0.5"/>
-            <line x1="288" y1="0" x2="288" y2="270" stroke="#2a2418" stroke-width="0.5"/>
-            <circle cx="360" cy="135" r="90" fill="none" stroke="#c9a96e" stroke-width="0.5" opacity="0.3"/>
-            <path d="M343 80 L377 80 Q390 110 377 128 L368 133 L368 165 L360 165 L360 133 L352 128 Q339 110 343 80 Z" fill="none" stroke="#c9a96e" stroke-width="1" opacity="0.55"/>
-            <text x="40" y="185" font-family="Georgia,serif" font-size="28" font-weight="300" fill="#c9a96e" letter-spacing="4">LA MAISON</text>
-            <text x="42" y="205" font-family="Georgia,serif" font-size="10" fill="#7a6a50" letter-spacing="3.5">FRENCH BISTRO &amp; WINE BAR</text>
-          </svg>
-          <div class="work-card__overlay"><span class="work-card__overlay-text">View Site ↗</span></div>
+    <!-- ③ チラシ -->
+    <div class="works-block" id="flyer">
+      <div class="works-block-header reveal">
+        <div class="works-block-header-left">
+          <span class="cat-badge flyer">03 / チラシ・フライヤー</span>
+          <h2 class="section-title">Flyer <em>Works</em></h2>
         </div>
-        <div class="work-card__body">
-          <p class="work-card__cat">LP制作</p>
-          <h3 class="work-card__title">フレンチレストランLP「LA MAISON」</h3>
-          <p class="work-card__desc">ディープブラック×ゴールドでエレガントな世界観を演出。メニュータブ切り替えとスクロールアニメーション実装。</p>
-          <div class="work-card__footer">
-            <div class="work-card__tags"><span class="work-card__tag">HTML/CSS</span><span class="work-card__tag">JS</span><span class="work-card__tag">飲食店</span></div>
-            <span class="work-card__arrow">↗</span>
+        <p style="font-size:.82rem;color:var(--muted);max-width:260px;line-height:1.7;">カードをクリックすると<br/>ライトボックスで拡大表示します。</p>
+      </div>
+
+      <div class="card-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="wcard reveal" onclick="openFlyerModal(0)" style="cursor:pointer;">
+          <div class="wcard__thumb">
+            <img src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer.png" alt="チラシ1" loading="lazy" style="width:100%;height:100%;object-fit:cover;"/>
+            <div class="wcard__overlay"><span class="overlay-label">🖼 拡大して見る</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat" style="color:var(--sage);">チラシ・フライヤー</p>
+            <h3 class="wcard__title">フライヤーデザイン 01</h3>
+            <p class="wcard__desc">印刷・デジタル配布対応のフライヤーデザイン。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">グラフィック</span></div><span class="wcard__arrow" style="background:var(--sage-pale);border-color:var(--sage-l);color:var(--sage);">🖼</span></div>
           </div>
         </div>
-      </a>
 
-      <!-- 02 冷凍ミールプレップ -->
-      <a href="https://akiramihara1289.github.io/MyPortfolio/freezer-cooking/" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="lp" style="transition-delay:0.08s;">
-        <div class="work-card__thumb">
-          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
-            <rect width="480" height="270" fill="#1A1A2E"/>
-            <defs><radialGradient id="wf1" cx="72%" cy="28%" r="55%"><stop offset="0%" stop-color="#ff6b35" stop-opacity="0.14"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
-            <rect width="480" height="270" fill="url(#wf1)"/>
-            <rect x="190" y="55" width="100" height="135" rx="8" fill="rgba(46,196,182,0.08)" stroke="#2EC4B6" stroke-width="1" stroke-dasharray="4,3"/>
-            <circle cx="228" cy="112" r="16" fill="#FF6B35" opacity="0.7"/>
-            <circle cx="252" cy="106" r="13" fill="#FFE66D" opacity="0.7"/>
-            <text x="40" y="105" font-family="sans-serif" font-size="28" font-weight="700" fill="#FF6B35" opacity="0.9">冷凍ミール</text>
-            <text x="40" y="138" font-family="sans-serif" font-size="28" font-weight="700" fill="#fff" opacity="0.85">プレップ</text>
-            <text x="40" y="162" font-family="sans-serif" font-size="11" fill="#2EC4B6" letter-spacing="2.5" opacity="0.8">COOKING CHANNEL</text>
-          </svg>
-          <div class="work-card__overlay"><span class="work-card__overlay-text">View Site ↗</span></div>
-        </div>
-        <div class="work-card__body">
-          <p class="work-card__cat">LP制作</p>
-          <h3 class="work-card__title">冷凍ミールプレップ料理チャンネル</h3>
-          <p class="work-card__desc">オレンジ×ティールの鮮やかな配色で視覚的インパクトを演出した時短料理チャンネルのLP。</p>
-          <div class="work-card__footer">
-            <div class="work-card__tags"><span class="work-card__tag">HTML/CSS</span><span class="work-card__tag">料理・食</span></div>
-            <span class="work-card__arrow">↗</span>
+        <div class="wcard reveal" onclick="openFlyerModal(1)" style="cursor:pointer;transition-delay:.1s;">
+          <div class="wcard__thumb">
+            <img src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/Flyer2.png" alt="チラシ2" loading="lazy" style="width:100%;height:100%;object-fit:cover;"/>
+            <div class="wcard__overlay"><span class="overlay-label">🖼 拡大して見る</span></div>
+          </div>
+          <div class="wcard__body">
+            <p class="wcard__cat" style="color:var(--sage);">チラシ・フライヤー</p>
+            <h3 class="wcard__title">フライヤーデザイン 02</h3>
+            <p class="wcard__desc">印刷・デジタル配布対応のフライヤーデザイン。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">グラフィック</span></div><span class="wcard__arrow" style="background:var(--sage-pale);border-color:var(--sage-l);color:var(--sage);">🖼</span></div>
           </div>
         </div>
-      </a>
 
-      <!-- 03 CleanPro -->
-      <a href="https://akiramihara1289.github.io/MyPortfolio/cleaning-shop/" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="lp" style="transition-delay:0.16s;">
-        <div class="work-card__thumb" style="background:#f0f4fa;">
-          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
-            <rect width="480" height="270" fill="#f0f4fa"/>
-            <circle cx="360" cy="70" r="48" fill="rgba(0,102,255,0.05)"/>
-            <rect x="320" y="92" width="38" height="95" rx="8" fill="#0066ff" opacity="0.85"/>
-            <path d="M358 108 L385 97 L390 108 L358 120 Z" fill="#0066ff" opacity="0.85"/>
-            <rect x="40" y="75" width="120" height="30" rx="15" fill="rgba(0,102,255,0.07)" stroke="rgba(0,102,255,0.18)" stroke-width="1"/>
-            <text x="56" y="96" font-family="sans-serif" font-size="13" fill="#0066ff" font-weight="600">✓ プロ品質</text>
-            <rect x="40" y="118" width="130" height="30" rx="15" fill="rgba(0,184,148,0.07)" stroke="rgba(0,184,148,0.18)" stroke-width="1"/>
-            <text x="56" y="138" font-family="sans-serif" font-size="13" fill="#00b894" font-weight="600">✓ 即日発送</text>
-            <rect x="40" y="162" width="140" height="30" rx="15" fill="rgba(253,124,59,0.07)" stroke="rgba(253,124,59,0.18)" stroke-width="1"/>
-            <text x="56" y="182" font-family="sans-serif" font-size="13" fill="#fd7c3b" font-weight="600">✓ 送料無料</text>
-            <text x="40" y="60" font-family="sans-serif" font-size="24" font-weight="700" fill="#0066ff">CleanPro</text>
-          </svg>
-          <div class="work-card__overlay"><span class="work-card__overlay-text">View Site ↗</span></div>
-        </div>
-        <div class="work-card__body">
-          <p class="work-card__cat">LP制作</p>
-          <h3 class="work-card__title">クリーニング店LP「CleanPro」</h3>
-          <p class="work-card__desc">クリーンなブルー系カラーで清潔感を表現。ハウスクリーニング用品ECサイトのLP。商品一覧・カート機能実装。</p>
-          <div class="work-card__footer">
-            <div class="work-card__tags"><span class="work-card__tag">HTML/CSS</span><span class="work-card__tag">ECサイト</span></div>
-            <span class="work-card__arrow">↗</span>
+        <div class="wcard reveal" onclick="openFlyerModal(2)" style="cursor:pointer;transition-delay:.2s;">
+          <div class="wcard__thumb">
+            <img src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer3.png" alt="チラシ3" loading="lazy" style="width:100%;height:100%;object-fit:cover;"/>
+            <div class="wcard__overlay"><span class="overlay-label">🖼 拡大して見る</span></div>
           </div>
-        </div>
-      </a>
-
-      <!-- 04 AI Coding -->
-      <a href="https://akiramihara1289.github.io/MyPortfolio/ai-coding-course/" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="lp">
-        <div class="work-card__thumb">
-          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
-            <rect width="480" height="270" fill="#0a0b14"/>
-            <defs><radialGradient id="wai1" cx="62%" cy="38%" r="55%"><stop offset="0%" stop-color="#6c63ff" stop-opacity="0.13"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
-            <rect width="480" height="270" fill="url(#wai1)"/>
-            <rect x="30" y="48" width="225" height="148" rx="8" fill="#11131f" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-            <rect x="30" y="48" width="225" height="26" rx="8" fill="#181b2e"/>
-            <circle cx="48" cy="61" r="4" fill="#ff6b6b"/>
-            <circle cx="62" cy="61" r="4" fill="#FFE66D"/>
-            <circle cx="76" cy="61" r="4" fill="#43e97b"/>
-            <rect x="46" y="88" width="32" height="6" rx="3" fill="#6c63ff" opacity="0.8"/>
-            <rect x="84" y="88" width="58" height="6" rx="3" fill="#e8eaf6" opacity="0.35"/>
-            <rect x="46" y="104" width="22" height="6" rx="3" fill="#00d4ff" opacity="0.7"/>
-            <rect x="56" y="120" width="62" height="6" rx="3" fill="#ff6b6b" opacity="0.6"/>
-            <g opacity="0.75">
-              <circle cx="310" cy="72" r="8" fill="#6c63ff"/>
-              <circle cx="350" cy="102" r="8" fill="#00d4ff"/>
-              <circle cx="390" cy="88" r="8" fill="#43e97b"/>
-              <circle cx="435" cy="118" r="10" fill="#6c63ff"/>
-              <line x1="318" y1="72" x2="342" y2="98" stroke="#6c63ff" stroke-width="0.8" opacity="0.5"/>
-              <line x1="398" y1="85" x2="425" y2="112" stroke="#43e97b" stroke-width="0.8" opacity="0.5"/>
-            </g>
-          </svg>
-          <div class="work-card__overlay"><span class="work-card__overlay-text">View Site ↗</span></div>
-        </div>
-        <div class="work-card__body">
-          <p class="work-card__cat">LP制作</p>
-          <h3 class="work-card__title">AIコーディングコース</h3>
-          <p class="work-card__desc">ダーク×パープル×シアンの先進的なデザイン。コードアニメーション・ニューラルネットイラスト実装。</p>
-          <div class="work-card__footer">
-            <div class="work-card__tags"><span class="work-card__tag">HTML/CSS/JS</span><span class="work-card__tag">教育</span></div>
-            <span class="work-card__arrow">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- 05 Hawaii LP -->
-      <a href="https://akiramihara1289.github.io/MyPortfolio/hawaii-lp/" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="lp" style="transition-delay:0.08s;">
-        <div class="work-card__thumb">
-          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="wh1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffcf77"/><stop offset="30%" stop-color="#ff9a5c"/><stop offset="55%" stop-color="#e05a8a"/><stop offset="80%" stop-color="#4a90d9"/><stop offset="100%" stop-color="#0077b6"/></linearGradient></defs>
-            <rect width="480" height="270" fill="url(#wh1)"/>
-            <circle cx="240" cy="88" r="32" fill="rgba(255,240,100,0.9)"/>
-            <circle cx="240" cy="88" r="24" fill="#ffe566"/>
-            <rect x="0" y="178" width="480" height="92" fill="#0077b6"/>
-            <path d="M0 270 L0 220 Q80 208 160 216 Q240 224 320 212 Q400 200 480 214 L480 270 Z" fill="#f4d59f"/>
-            <text x="178" y="158" font-family="Georgia,serif" font-size="26" fill="rgba(255,255,255,0.9)" letter-spacing="2">Aloha Hawaii</text>
-          </svg>
-          <div class="work-card__overlay"><span class="work-card__overlay-text">View Site ↗</span></div>
-        </div>
-        <div class="work-card__body">
-          <p class="work-card__cat">LP制作</p>
-          <h3 class="work-card__title">ハワイ旅行LP</h3>
-          <p class="work-card__desc">サンセットグラデーション×トロピカルな世界観。SVGによる情景イラスト全描画で没入感を演出。</p>
-          <div class="work-card__footer">
-            <div class="work-card__tags"><span class="work-card__tag">HTML/CSS/JS</span><span class="work-card__tag">旅行</span></div>
-            <span class="work-card__arrow">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- 06 Pet Cafe LP -->
-      <a href="https://akiramihara1289.github.io/MyPortfolio/pet-cafe-lp/" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="lp" style="transition-delay:0.16s;">
-        <div class="work-card__thumb" style="background:#FFFAF3;">
-          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
-            <rect width="480" height="270" fill="#FFFAF3"/>
-            <circle cx="240" cy="120" r="100" fill="#FFF3E8" opacity="0.8"/>
-            <g transform="translate(108,115)">
-              <circle cx="40" cy="50" r="32" fill="#F5D0A9"/>
-              <circle cx="40" cy="20" r="28" fill="#F5D0A9"/>
-              <polygon points="16,6 4,-12 28,4" fill="#F5D0A9"/>
-              <polygon points="64,6 76,-12 52,4" fill="#F5D0A9"/>
-              <polygon points="18,4 8,-8 26,2" fill="#FFB6C1"/>
-              <polygon points="62,4 72,-8 54,2" fill="#FFB6C1"/>
-              <circle cx="27" cy="14" r="7" fill="#fff"/>
-              <circle cx="53" cy="14" r="7" fill="#fff"/>
-              <circle cx="29" cy="16" r="4" fill="#5C3D2E"/>
-              <circle cx="55" cy="16" r="4" fill="#5C3D2E"/>
-              <ellipse cx="40" cy="26" rx="3.5" ry="2.5" fill="#FFB6C1"/>
-            </g>
-            <g transform="translate(270,100)">
-              <ellipse cx="50" cy="95" rx="38" ry="44" fill="#E8C070"/>
-              <circle cx="50" cy="50" r="36" fill="#EACA70"/>
-              <ellipse cx="50" cy="64" rx="24" ry="18" fill="#F0D888"/>
-              <circle cx="33" cy="40" r="8" fill="#fff"/>
-              <circle cx="67" cy="40" r="8" fill="#fff"/>
-              <circle cx="35" cy="42" r="5" fill="#5C3D2E"/>
-              <circle cx="69" cy="42" r="5" fill="#5C3D2E"/>
-              <ellipse cx="50" cy="74" rx="12" ry="9" fill="#FF8888" opacity="0.8"/>
-            </g>
-            <text x="240" y="252" text-anchor="middle" font-family="Georgia,cursive" font-size="18" fill="#C9845A" letter-spacing="1">Paws &amp; Plates</text>
-          </svg>
-          <div class="work-card__overlay"><span class="work-card__overlay-text">View Site ↗</span></div>
-        </div>
-        <div class="work-card__body">
-          <p class="work-card__cat">LP制作</p>
-          <h3 class="work-card__title">ペットカフェLP「Paws & Plates」</h3>
-          <p class="work-card__desc">猫・犬が歩き回るほっこり空間のLP。クリーム×テラコッタの温かいデザイン。クリックで肉球エフェクトが飛び出す演出も。</p>
-          <div class="work-card__footer">
-            <div class="work-card__tags"><span class="work-card__tag">HTML/CSS/JS</span><span class="work-card__tag">飲食店</span></div>
-            <span class="work-card__arrow">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- 07 チラシ -->
-      <div class="work-card reveal" data-category="print"
-           style="cursor:pointer;" onclick="openFlyerModal()">
-        <div class="work-card__thumb">
-          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
-            <rect width="480" height="270" fill="#F9F4FF"/>
-            <rect x="120" y="20" width="240" height="230" rx="8" fill="white" stroke="#EAE0E8" stroke-width="1.5" transform="rotate(-3, 240, 135)"/>
-            <rect x="120" y="20" width="240" height="230" rx="8" fill="white" stroke="#EAE0E8" stroke-width="1.5"/>
-            <rect x="120" y="20" width="240" height="60" rx="8" fill="#C8707E"/>
-            <rect x="120" y="60" width="240" height="20" fill="#C8707E"/>
-            <text x="240" y="55" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="white" letter-spacing="2">FLYER DESIGN</text>
-            <rect x="138" y="96" width="204" height="8" rx="4" fill="#EAE0E8"/>
-            <rect x="138" y="112" width="160" height="6" rx="3" fill="#EAE0E8"/>
-            <rect x="138" y="148" width="58" height="58" rx="6" fill="#E8A4B0" opacity="0.5"/>
-            <rect x="204" y="148" width="58" height="58" rx="6" fill="#B8D0C4" opacity="0.5"/>
-            <rect x="270" y="148" width="58" height="58" rx="6" fill="#C4B8D8" opacity="0.5"/>
-            <rect x="170" y="218" width="100" height="22" rx="11" fill="#C8707E"/>
-            <text x="220" y="232" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white" font-weight="600">VIEW WORK</text>
-          </svg>
-          <div class="work-card__overlay"><span class="work-card__overlay-text">🖼 チラシを見る</span></div>
-        </div>
-        <div class="work-card__body">
-          <p class="work-card__cat">チラシ・フライヤー</p>
-          <h3 class="work-card__title">チラシ・フライヤーデザイン</h3>
-          <p class="work-card__desc">印刷・デジタル配布に対応したフライヤーデザイン作品。ブランドイメージに合わせた統一感のある仕上がり。3点掲載。</p>
-          <div class="work-card__footer">
-            <div class="work-card__tags"><span class="work-card__tag">グラフィック</span><span class="work-card__tag">印刷物</span></div>
-            <span class="work-card__arrow">🖼</span>
+          <div class="wcard__body">
+            <p class="wcard__cat" style="color:var(--sage);">チラシ・フライヤー</p>
+            <h3 class="wcard__title">フライヤーデザイン 03</h3>
+            <p class="wcard__desc">印刷・デジタル配布対応のフライヤーデザイン。</p>
+            <div class="wcard__foot"><div class="wcard__tags"><span class="tag">グラフィック</span></div><span class="wcard__arrow" style="background:var(--sage-pale);border-color:var(--sage-l);color:var(--sage);">🖼</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-    </div><!-- /works-grid -->
-  </div>
-</section>
+  </div><!-- /works-inner -->
+</div>
 
-<!-- ===================== SUB WORKS 仕切り ===================== -->
-<div class="works-divider">
-  <div class="works-divider__inner">
-    <div class="works-sub" id="sub-works" style="padding:0 0 8rem;">
-      <div class="works-sub__inner">
-
-        <div class="works-header reveal">
-          <div>
-            <span class="sub-badge">📽 Sub Works</span>
-            <h2 class="section-title" style="margin-top:0.5rem;">動画制作 / <em style="font-size:0.75em;color:var(--muted);">YouTube</em></h2>
-            <p class="sub-note">動画編集・映像制作はサブスキルとして取り組んでいます。</p>
-          </div>
-        </div>
-
-        <div class="yt-grid">
-
-          <!-- YouTube 01 -->
-          <div class="yt-card reveal" onclick="openYouTubeModal('TWsOMSLdyho','動画作品 01','')">
-            <div class="yt-card__thumb">
-              <img src="https://img.youtube.com/vi/TWsOMSLdyho/hqdefault.jpg" alt="動画01"
-                   loading="lazy" onerror="this.style.background='#222';this.style.minHeight='160px';" />
-              <div class="yt-play-btn">
-                <div class="yt-play-icon">▶</div>
-              </div>
-            </div>
-            <div class="yt-card__body">
-              <p class="yt-card__cat">動画制作</p>
-              <h3 class="yt-card__title">動画作品 01</h3>
-              <p class="yt-card__desc">映像制作作品。クリックして動画をご覧ください。</p>
-              <div class="yt-card__footer">
-                <div class="yt-card__tags">
-                  <span class="yt-card__tag">動画編集</span>
-                  <span class="yt-card__tag">YouTube</span>
-                </div>
-                <span class="yt-card__arrow">▶</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- YouTube 02 (Shorts) -->
-          <div class="yt-card reveal" style="transition-delay:0.1s;" onclick="openYouTubeModal('FGeDXOShCFA','動画作品 02（Shorts）','')">
-            <div class="yt-card__thumb">
-              <img src="https://img.youtube.com/vi/FGeDXOShCFA/hqdefault.jpg" alt="動画02"
-                   loading="lazy" onerror="this.style.background='#222';this.style.minHeight='160px';" />
-              <div class="yt-play-btn">
-                <div class="yt-play-icon">▶</div>
-              </div>
-            </div>
-            <div class="yt-card__body">
-              <p class="yt-card__cat">動画制作</p>
-              <h3 class="yt-card__title">動画作品 02</h3>
-              <p class="yt-card__desc">映像制作作品（ショート動画）。クリックして動画をご覧ください。</p>
-              <div class="yt-card__footer">
-                <div class="yt-card__tags">
-                  <span class="yt-card__tag">Shorts</span>
-                  <span class="yt-card__tag">YouTube</span>
-                </div>
-                <span class="yt-card__arrow">▶</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- YouTube 03 -->
-          <div class="yt-card reveal" style="transition-delay:0.2s;" onclick="openYouTubeModal('MhjjnmvQW64','動画作品 03','')">
-            <div class="yt-card__thumb">
-              <img src="https://img.youtube.com/vi/MhjjnmvQW64/hqdefault.jpg" alt="動画03"
-                   loading="lazy" onerror="this.style.background='#222';this.style.minHeight='160px';" />
-              <div class="yt-play-btn">
-                <div class="yt-play-icon">▶</div>
-              </div>
-            </div>
-            <div class="yt-card__body">
-              <p class="yt-card__cat">動画制作</p>
-              <h3 class="yt-card__title">動画作品 03</h3>
-              <p class="yt-card__desc">映像制作作品。クリックして動画をご覧ください。</p>
-              <div class="yt-card__footer">
-                <div class="yt-card__tags">
-                  <span class="yt-card__tag">動画編集</span>
-                  <span class="yt-card__tag">YouTube</span>
-                </div>
-                <span class="yt-card__arrow">▶</span>
-              </div>
-            </div>
-          </div>
-
-        </div><!-- /yt-grid -->
+<!-- ===================== SUB WORKS (YouTube動画) ===================== -->
+<div class="sub-area" id="video">
+  <div class="sub-inner">
+    <div class="sub-header reveal">
+      <div>
+        <span class="sub-badge">📽 Sub Works</span>
+        <h2 class="section-title" style="margin-top:.5rem;">動画制作 / <em style="color:var(--muted);font-size:.75em;">YouTube</em></h2>
+        <p class="sub-note">動画編集・映像制作はサブスキルとして取り組んでいます。</p>
       </div>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="ytcard reveal" onclick="openYouTubeModal('TWsOMSLdyho','動画作品 01','')">
+        <div class="ytcard__thumb">
+          <img src="https://img.youtube.com/vi/TWsOMSLdyho/hqdefault.jpg" alt="動画01" loading="lazy"/>
+          <div class="yt-play"><div class="yt-play-icon">▶</div></div>
+        </div>
+        <div class="ytcard__body">
+          <p class="ytcard__cat">動画制作 / YouTube</p>
+          <h3 class="ytcard__title">動画作品 01</h3>
+          <p class="ytcard__desc">映像制作作品。クリックして動画をご覧ください。</p>
+          <div class="ytcard__foot"><div class="wcard__tags"><span class="tag">動画編集</span><span class="tag">YouTube</span></div><span class="ytcard__arrow">▶</span></div>
+        </div>
+      </div>
+
+      <div class="ytcard reveal" style="transition-delay:.1s;" onclick="openYouTubeModal('FGeDXOShCFA','動画作品 02（Shorts）','')">
+        <div class="ytcard__thumb">
+          <img src="https://img.youtube.com/vi/FGeDXOShCFA/hqdefault.jpg" alt="動画02" loading="lazy"/>
+          <div class="yt-play"><div class="yt-play-icon">▶</div></div>
+        </div>
+        <div class="ytcard__body">
+          <p class="ytcard__cat">動画制作 / YouTube Shorts</p>
+          <h3 class="ytcard__title">動画作品 02</h3>
+          <p class="ytcard__desc">ショート動画作品。クリックして動画をご覧ください。</p>
+          <div class="ytcard__foot"><div class="wcard__tags"><span class="tag">Shorts</span><span class="tag">YouTube</span></div><span class="ytcard__arrow">▶</span></div>
+        </div>
+      </div>
+
+      <div class="ytcard reveal" style="transition-delay:.2s;" onclick="openYouTubeModal('MhjjnmvQW64','動画作品 03','')">
+        <div class="ytcard__thumb">
+          <img src="https://img.youtube.com/vi/MhjjnmvQW64/hqdefault.jpg" alt="動画03" loading="lazy"/>
+          <div class="yt-play"><div class="yt-play-icon">▶</div></div>
+        </div>
+        <div class="ytcard__body">
+          <p class="ytcard__cat">動画制作 / YouTube</p>
+          <h3 class="ytcard__title">動画作品 03</h3>
+          <p class="ytcard__desc">映像制作作品。クリックして動画をご覧ください。</p>
+          <div class="ytcard__foot"><div class="wcard__tags"><span class="tag">動画編集</span><span class="tag">YouTube</span></div><span class="ytcard__arrow">▶</span></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
 <!-- ===================== QUOTE ===================== -->
-<section class="quote-strip">
+<div class="quote">
   <div class="quote-bg">"</div>
-  <p class="quote-strip__text">"一つひとつの制作物に、<br />丁寧さと想いを込めて。"</p>
-  <p class="quote-strip__author">— Lazzlly Lab.</p>
-</section>
+  <p class="quote-text">"一つひとつの制作物に、<br/>丁寧さと想いを込めて。"</p>
+  <p class="quote-author">— Lazzlly Lab.</p>
+</div>
 
 <!-- ===================== CTA ===================== -->
 <section class="cta" id="contact">
   <div class="cta__inner">
-    <p class="tag-label" style="justify-content:center;margin-bottom:0.75rem;">Contact</p>
-    <h2 class="cta__title">お仕事の<br /><em>ご相談は</em>、いつでも。</h2>
-    <p class="cta__desc">
-      LP制作・チラシ・バナーデザインなど、<br />
-      Webクリエイティブに関するご依頼・ご相談をお待ちしています。<br />
-      まずはお気軽にGitHubからご覧ください。
-    </p>
-    <div class="cta__links">
+    <p class="tag-label" style="justify-content:center;margin-bottom:.75rem;">Contact</p>
+    <h2 class="cta-title">お仕事の<br/><em>ご相談は</em>、いつでも。</h2>
+    <p class="cta-desc">LP制作・バナー・チラシデザインなど、<br/>Webクリエイティブに関するご依頼・ご相談をお待ちしています。</p>
+    <div class="cta-btns">
       <a href="https://github.com/AkiraMihara1289/MyPortfolio" target="_blank" rel="noopener" class="btn btn--rose">🌸 ポートフォリオを見る</a>
       <a href="https://github.com/AkiraMihara1289" target="_blank" rel="noopener" class="btn btn--outline">GitHub Profile →</a>
     </div>
-    <p class="cta__note">📎 GitHub Pages にて全作品を公開中</p>
+    <p class="cta-note">📎 GitHub Pages にて全作品を公開中</p>
   </div>
 </section>
 
 <!-- ===================== FOOTER ===================== -->
 <footer class="footer">
-  <div class="footer__main">
+  <div class="footer-main">
     <div>
-      <p class="footer__logo-main">Lazzlly <em>Lab.</em></p>
-      <p class="footer__desc">LP制作・チラシ・バナーを手がけるWebクリエイター。「伝わる」デザインを丁寧に。</p>
-      <div class="footer__social">
+      <p class="footer-logo">Lazzlly <em>Lab.</em></p>
+      <p class="footer-desc">LP制作・Webバナー・チラシを手がけるWebクリエイター。「伝わる」デザインを丁寧に。</p>
+      <div class="footer-social">
         <a href="https://github.com/AkiraMihara1289" target="_blank" rel="noopener" aria-label="GitHub">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
         </a>
       </div>
     </div>
-    <nav class="footer__nav">
-      <div class="footer__col">
+    <nav class="footer-nav">
+      <div class="footer-col">
         <h4>Main Works</h4>
         <ul>
-          <li><a href="https://akiramihara1289.github.io/MyPortfolio/restaurant-lp/" target="_blank">LA MAISON</a></li>
-          <li><a href="https://akiramihara1289.github.io/MyPortfolio/freezer-cooking/" target="_blank">冷凍ミールプレップ</a></li>
-          <li><a href="https://akiramihara1289.github.io/MyPortfolio/cleaning-shop/" target="_blank">CleanPro</a></li>
-          <li><a href="https://akiramihara1289.github.io/MyPortfolio/ai-coding-course/" target="_blank">AIコーディング</a></li>
-          <li><a href="https://akiramihara1289.github.io/MyPortfolio/hawaii-lp/" target="_blank">ハワイLP</a></li>
-          <li><a href="https://akiramihara1289.github.io/MyPortfolio/pet-cafe-lp/" target="_blank">ペットカフェLP</a></li>
+          <li><a href="https://akiramihara1289.github.io/MyPortfolio/restaurant-lp/" target="_blank">LP / LA MAISON</a></li>
+          <li><a href="https://akiramihara1289.github.io/MyPortfolio/pet-cafe-lp/" target="_blank">LP / ペットカフェ</a></li>
+          <li><a href="https://akiramihara1289.github.io/MyPortfolio/freezer-cooking/" target="_blank">LP / 冷凍ミールプレップ</a></li>
+          <li><a href="https://akiramihara1289.github.io/MyPortfolio/cleaning-shop/" target="_blank">LP / CleanPro</a></li>
+          <li><a href="https://akiramihara1289.github.io/MyPortfolio/hawaii-lp/" target="_blank">LP / ハワイ旅行</a></li>
+          <li><a href="https://akiramihara1289.github.io/MyPortfolio/ai-coding-course/" target="_blank">LP / AIコーディング</a></li>
         </ul>
       </div>
-      <div class="footer__col">
-        <h4>Sub Works</h4>
+      <div class="footer-col">
+        <h4>Banner / Flyer</h4>
         <ul>
-          <li><a href="https://www.youtube.com/watch?v=TWsOMSLdyho" target="_blank">動画作品 01</a></li>
-          <li><a href="https://www.youtube.com/shorts/FGeDXOShCFA" target="_blank">動画作品 02</a></li>
-          <li><a href="https://www.youtube.com/watch?v=MhjjnmvQW64" target="_blank">動画作品 03</a></li>
+          <li><a href="#banner">バナー 01 / Birthday</a></li>
+          <li><a href="#banner">バナー 02 / Corporate</a></li>
+          <li><a href="#banner">バナー 03 / Interior</a></li>
+          <li><a href="#flyer">チラシ 01 〜 03</a></li>
         </ul>
       </div>
-      <div class="footer__col">
-        <h4>Links</h4>
+      <div class="footer-col">
+        <h4>Sub / Links</h4>
         <ul>
-          <li><a href="#top">Top</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#main-works">Main Works</a></li>
-          <li><a href="#sub-works">Sub Works</a></li>
+          <li><a href="https://www.youtube.com/watch?v=TWsOMSLdyho" target="_blank">動画 01</a></li>
+          <li><a href="https://www.youtube.com/shorts/FGeDXOShCFA" target="_blank">動画 02</a></li>
+          <li><a href="https://www.youtube.com/watch?v=MhjjnmvQW64" target="_blank">動画 03</a></li>
           <li><a href="https://github.com/AkiraMihara1289/MyPortfolio" target="_blank">GitHub</a></li>
         </ul>
       </div>
     </nav>
   </div>
-  <div class="footer__bottom">
+  <div class="footer-bottom">
     <p>© 2026 Lazzlly Lab. All rights reserved.</p>
-    <p style="color:rgba(255,255,255,0.3);">AkiraMihara1289 / MyPortfolio</p>
+    <p style="color:rgba(255,255,255,.3);">AkiraMihara1289 / MyPortfolio</p>
   </div>
 </footer>
 
+<!-- ===================== バナーモーダル ===================== -->
+<div class="modal-ov" id="bannerModalOv" onclick="closeBannerModal()">
+  <div class="modal-box-dark" style="max-width:900px;" onclick="event.stopPropagation()">
+    <button class="modal-close-dark" onclick="closeBannerModal()">✕</button>
+    <div style="background:#000;">
+      <video id="bannerModalVideo" controls playsinline style="width:100%;display:block;max-height:75vh;object-fit:contain;">
+        <source id="bannerModalSrc" src="" type="video/mp4">
+      </video>
+    </div>
+    <div class="modal-info">
+      <p class="modal-info-title" id="bannerModalTitle"></p>
+      <p class="modal-info-desc" id="bannerModalDesc"></p>
+    </div>
+  </div>
+</div>
+
 <!-- ===================== YouTube モーダル ===================== -->
-<div class="modal-overlay" id="ytModalOverlay" onclick="closeYouTubeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeYouTubeModal()">✕</button>
-    <div class="yt-iframe-wrap">
+<div class="modal-ov" id="ytModalOv" onclick="closeYouTubeModal()">
+  <div class="modal-box-dark" style="max-width:860px;" onclick="event.stopPropagation()">
+    <button class="modal-close-dark" onclick="closeYouTubeModal()">✕</button>
+    <div class="yt-wrap" id="ytWrap">
       <iframe id="ytIframe" src="" title="YouTube動画"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen></iframe>
     </div>
     <div class="modal-info">
       <p class="modal-info-title" id="ytTitle"></p>
-      <p class="modal-info-desc" id="ytDesc"></p>
     </div>
   </div>
 </div>
 
 <!-- ===================== チラシモーダル ===================== -->
-<div class="flyer-modal-overlay" id="flyerModalOverlay" onclick="closeFlyerModal()">
-  <div class="flyer-modal-box" onclick="event.stopPropagation()">
+<div class="modal-ov-light" id="flyerOv" onclick="closeFlyerModal()">
+  <div class="modal-box-light" onclick="event.stopPropagation()">
     <button class="modal-close-light" onclick="closeFlyerModal()">✕</button>
-    <div class="modal-header">
+    <div class="modal-hd">
       <p class="modal-label">🎨 チラシ・フライヤーデザイン</p>
       <h3 class="modal-title">Flyer Works</h3>
     </div>
     <div class="flyer-nav">
-      <button class="flyer-nav-btn" onclick="changeFlyer(-1)">‹</button>
-      <span class="flyer-counter" id="flyerCounter">1 / 3</span>
-      <button class="flyer-nav-btn" onclick="changeFlyer(1)">›</button>
+      <button class="flyer-btn" onclick="changeFlyer(-1)">‹</button>
+      <span class="flyer-count" id="flyerCount">1 / 3</span>
+      <button class="flyer-btn" onclick="changeFlyer(1)">›</button>
     </div>
-    <div class="flyer-img-wrap" id="flyerImgWrap">
-      <img id="flyerImg" src="" alt="チラシデザイン"
-           style="max-width:100%;max-height:62vh;border-radius:10px;object-fit:contain;display:block;margin:0 auto;" />
+    <div class="flyer-img-wrap">
+      <img id="flyerImg" src="" alt="チラシ" style="max-width:100%;max-height:62vh;border-radius:10px;object-fit:contain;display:block;margin:0 auto;"/>
       <div class="flyer-loading" id="flyerLoading">読み込み中...</div>
     </div>
     <div class="flyer-thumbs">
-      <img class="flyer-thumb active" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer.png" onclick="goFlyer(0)" alt="チラシ1" loading="lazy"/>
-      <img class="flyer-thumb" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/Flyer2.png" onclick="goFlyer(1)" alt="チラシ2" loading="lazy"/>
-      <img class="flyer-thumb" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer3.png" onclick="goFlyer(2)" alt="チラシ3" loading="lazy"/>
+      <img class="flyer-thumb" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer.png"  onclick="goFlyer(0)" alt="1" loading="lazy"/>
+      <img class="flyer-thumb" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/Flyer2.png" onclick="goFlyer(1)" alt="2" loading="lazy"/>
+      <img class="flyer-thumb" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer3.png" onclick="goFlyer(2)" alt="3" loading="lazy"/>
     </div>
   </div>
 </div>
 
 <script>
-// Header scroll
-const header = document.getElementById('siteHeader');
-window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
+/* =====================================================
+   Header scroll
+===================================================== */
+const hdr = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 40), { passive: true });
 
-// Reveal
+/* =====================================================
+   Reveal
+===================================================== */
 const obs = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 90);
-      obs.unobserve(entry.target);
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 90);
+      obs.unobserve(e.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// Work filter
+/* =====================================================
+   LP Filter
+===================================================== */
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-    document.querySelectorAll('#worksGrid .work-card').forEach(card => {
-      card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
+    document.querySelectorAll('#lpGrid .wcard').forEach(c => {
+      c.classList.toggle('hidden', f !== 'all' && c.dataset.lp !== f);
     });
   });
 });
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const el = document.querySelector(a.getAttribute('href'));
-    if (el) { e.preventDefault(); window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' }); }
+/* =====================================================
+   Banner video — hover to play / IntersectionObserver
+===================================================== */
+const bannerVideos = document.querySelectorAll('.bcard__video');
+
+// Lazy load video src
+const videoObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const vid = entry.target;
+    if (entry.isIntersecting && !vid.src) {
+      const src = vid.dataset.src;
+      if (src) {
+        vid.src = src;
+        const source = vid.querySelector('source');
+        if (source) source.src = src;
+        vid.load();
+      }
+    }
+    // Auto-play when visible
+    if (entry.isIntersecting) {
+      vid.play().catch(() => {});
+    } else {
+      vid.pause();
+    }
   });
-});
+}, { threshold: 0.3 });
+
+bannerVideos.forEach(vid => videoObs.observe(vid));
 
 /* =====================================================
-   YouTube モーダル
+   Banner Modal
 ===================================================== */
-function openYouTubeModal(videoId, title, desc) {
-  const overlay = document.getElementById('ytModalOverlay');
-  const iframe  = document.getElementById('ytIframe');
-  document.getElementById('ytTitle').textContent = title;
-  document.getElementById('ytDesc').textContent  = desc;
-  // Shorts は縦型なので aspect-ratio を調整
-  const isShorts = videoId === 'FGeDXOShCFA';
-  const wrap = document.querySelector('.yt-iframe-wrap');
-  wrap.style.aspectRatio = isShorts ? '9/16' : '16/9';
-  wrap.style.maxHeight   = isShorts ? '70vh' : '';
-  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-  overlay.classList.add('open');
+function openBannerModal(src, title, desc) {
+  const vid = document.getElementById('bannerModalVideo');
+  const source = document.getElementById('bannerModalSrc');
+  document.getElementById('bannerModalTitle').textContent = title;
+  document.getElementById('bannerModalDesc').textContent  = desc;
+  source.src = src;
+  vid.load();
+  document.getElementById('bannerModalOv').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
-function closeYouTubeModal() {
-  const overlay = document.getElementById('ytModalOverlay');
-  const iframe  = document.getElementById('ytIframe');
-  iframe.src = '';
-  overlay.classList.remove('open');
+function closeBannerModal() {
+  const vid = document.getElementById('bannerModalVideo');
+  vid.pause();
+  vid.currentTime = 0;
+  document.getElementById('bannerModalSrc').src = '';
+  document.getElementById('bannerModalOv').classList.remove('open');
   document.body.style.overflow = '';
 }
 
 /* =====================================================
-   チラシモーダル
+   YouTube Modal
+===================================================== */
+function openYouTubeModal(id, title) {
+  const isShorts = id === 'FGeDXOShCFA';
+  const wrap = document.getElementById('ytWrap');
+  wrap.className = 'yt-wrap' + (isShorts ? ' vertical' : '');
+  document.getElementById('ytTitle').textContent = title;
+  document.getElementById('ytIframe').src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  document.getElementById('ytModalOv').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeYouTubeModal() {
+  document.getElementById('ytIframe').src = '';
+  document.getElementById('ytModalOv').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* =====================================================
+   Flyer Modal
 ===================================================== */
 const FLYERS = [
   'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer.png',
   'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/Flyer2.png',
   'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer3.png',
 ];
-let currentFlyerIdx = 0;
+let flyerIdx = 0;
 
-function openFlyerModal() {
-  currentFlyerIdx = 0;
+function openFlyerModal(idx) {
+  flyerIdx = idx ?? 0;
   updateFlyerView();
-  document.getElementById('flyerModalOverlay').classList.add('open');
+  document.getElementById('flyerOv').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeFlyerModal() {
-  document.getElementById('flyerModalOverlay').classList.remove('open');
+  document.getElementById('flyerOv').classList.remove('open');
   document.body.style.overflow = '';
 }
-function changeFlyer(dir) {
-  currentFlyerIdx = (currentFlyerIdx + dir + FLYERS.length) % FLYERS.length;
-  updateFlyerView();
-}
-function goFlyer(idx) {
-  currentFlyerIdx = idx;
-  updateFlyerView();
-}
+function changeFlyer(dir) { flyerIdx = (flyerIdx + dir + FLYERS.length) % FLYERS.length; updateFlyerView(); }
+function goFlyer(i)        { flyerIdx = i; updateFlyerView(); }
 function updateFlyerView() {
-  const img      = document.getElementById('flyerImg');
-  const loading  = document.getElementById('flyerLoading');
-  const counter  = document.getElementById('flyerCounter');
+  const img = document.getElementById('flyerImg');
+  const loading = document.getElementById('flyerLoading');
   loading.classList.add('show');
   img.style.opacity = '0';
-  img.onload = () => {
-    loading.classList.remove('show');
-    img.style.transition = 'opacity 0.35s ease';
-    img.style.opacity = '1';
-  };
+  img.onload  = () => { loading.classList.remove('show'); img.style.cssText += 'transition:opacity .35s;opacity:1;'; };
   img.onerror = () => { loading.textContent = '画像を読み込めませんでした'; };
-  img.src = FLYERS[currentFlyerIdx];
-  counter.textContent = `${currentFlyerIdx + 1} / ${FLYERS.length}`;
-  document.querySelectorAll('.flyer-thumb').forEach((t, i) => t.classList.toggle('active', i === currentFlyerIdx));
+  img.src = FLYERS[flyerIdx];
+  document.getElementById('flyerCount').textContent = `${flyerIdx + 1} / ${FLYERS.length}`;
+  document.querySelectorAll('.flyer-thumb').forEach((t, i) => t.classList.toggle('active', i === flyerIdx));
 }
 
-// キーボード操作
+/* =====================================================
+   Keyboard
+===================================================== */
 document.addEventListener('keydown', e => {
-  if (document.getElementById('flyerModalOverlay').classList.contains('open')) {
+  if (document.getElementById('flyerOv').classList.contains('open')) {
     if (e.key === 'ArrowLeft')  changeFlyer(-1);
     if (e.key === 'ArrowRight') changeFlyer(1);
     if (e.key === 'Escape')     closeFlyerModal();
   }
-  if (document.getElementById('ytModalOverlay').classList.contains('open')) {
-    if (e.key === 'Escape') closeYouTubeModal();
-  }
+  if (document.getElementById('ytModalOv').classList.contains('open')     && e.key === 'Escape') closeYouTubeModal();
+  if (document.getElementById('bannerModalOv').classList.contains('open') && e.key === 'Escape') closeBannerModal();
+});
+
+/* =====================================================
+   Smooth scroll
+===================================================== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const el = document.querySelector(a.getAttribute('href'));
+    if (el) { e.preventDefault(); window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' }); }
+  });
 });
 </script>
 </body>
