@@ -1058,6 +1058,209 @@ body::before {
 }
 
 /* =============================================
+   Modal共通
+============================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 20, 20, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-box {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 2rem 2rem 1.5rem;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.open .modal-box {
+  transform: scale(1) translateY(0);
+}
+
+.modal-box--video  { max-width: 820px; }
+.modal-box--flyer  { max-width: 680px; }
+
+.modal-close {
+  position: absolute;
+  top: 1.25rem; right: 1.25rem;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+.modal-close:hover { background: var(--rose-pale); color: var(--rose); border-color: var(--rose-l); }
+
+.modal-header {
+  margin-bottom: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.modal-label {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 4px;
+}
+
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+/* =============================================
+   動画モーダル
+============================================= */
+.video-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.vtab {
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.04em;
+}
+
+.vtab.active, .vtab:hover {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: white;
+}
+
+.video-player-wrap {
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.video-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* =============================================
+   チラシモーダル（ライトボックス）
+============================================= */
+.flyer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.flyer-nav-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--text);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+.flyer-nav-btn:hover { background: var(--rose); color: white; border-color: var(--rose); }
+
+.flyer-counter {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  min-width: 50px;
+  text-align: center;
+}
+
+.flyer-img-wrap {
+  position: relative;
+  min-height: 100px;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  background: var(--warm);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.flyer-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+  background: var(--warm);
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.flyer-loading.show { opacity: 1; }
+
+.flyer-thumbs {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.flyer-thumb {
+  width: 72px; height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.65;
+}
+
+.flyer-thumb:hover { opacity: 1; transform: scale(1.05); }
+.flyer-thumb.active { border-color: var(--rose); opacity: 1; box-shadow: 0 0 0 2px var(--rose-pale); }
+
+/* =============================================
    Reveal animation
 ============================================= */
 @keyframes fadeUp {
@@ -1627,8 +1830,8 @@ body::before {
       </a>
 
       <!-- 07 動画制作 -->
-      <a href="https://github.com/AkiraMihara1289/MyPortfolio/tree/main/MovieImade" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="video">
+      <div class="work-card reveal" data-category="video" id="videoCard" style="cursor:pointer;"
+           onclick="openVideoModal()">
         <div class="work-card__thumb">
           <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -1652,7 +1855,7 @@ body::before {
             <text x="240" y="248" text-anchor="middle" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" letter-spacing="2">VIDEO PRODUCTION</text>
           </svg>
           <div class="work-card__overlay">
-            <span class="work-card__overlay-text">GitHub ↗</span>
+            <span class="work-card__overlay-text">▶ 動画を見る</span>
           </div>
         </div>
         <div class="work-card__body">
@@ -1664,14 +1867,14 @@ body::before {
               <span class="work-card__tag">動画編集</span>
               <span class="work-card__tag">映像制作</span>
             </div>
-            <span class="work-card__arrow">↗</span>
+            <span class="work-card__arrow">▶</span>
           </div>
         </div>
-      </a>
+      </div>
 
       <!-- 08 チラシ -->
-      <a href="https://github.com/AkiraMihara1289/MyPortfolio/tree/main/Fltyer" target="_blank" rel="noopener"
-         class="work-card reveal" data-category="print" style="transition-delay:0.08s;">
+      <div class="work-card reveal" data-category="print" style="cursor:pointer;transition-delay:0.08s;"
+           onclick="openFlyerModal()">
         <div class="work-card__thumb">
           <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
             <rect width="480" height="270" fill="#F9F4FF"/>
@@ -1695,7 +1898,7 @@ body::before {
             <text x="220" y="232" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white" font-weight="600">VIEW WORK</text>
           </svg>
           <div class="work-card__overlay">
-            <span class="work-card__overlay-text">GitHub ↗</span>
+            <span class="work-card__overlay-text">🖼 チラシを見る</span>
           </div>
         </div>
         <div class="work-card__body">
@@ -1707,14 +1910,83 @@ body::before {
               <span class="work-card__tag">グラフィック</span>
               <span class="work-card__tag">印刷物</span>
             </div>
-            <span class="work-card__arrow">↗</span>
+            <span class="work-card__arrow">🖼</span>
           </div>
         </div>
-      </a>
+      </div>
 
     </div><!-- /works__grid -->
   </div>
 </section>
+
+<!-- =====================================================
+     動画モーダル
+===================================================== -->
+<div class="modal-overlay" id="videoModalOverlay" onclick="closeVideoModal()">
+  <div class="modal-box modal-box--video" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeVideoModal()">✕</button>
+    <div class="modal-header">
+      <p class="modal-label">🎬 動画制作作品</p>
+      <h3 class="modal-title">Video Works</h3>
+    </div>
+
+    <!-- 動画タブ -->
+    <div class="video-tabs">
+      <button class="vtab active" data-vi="0" onclick="switchVideo(0)">動画 01</button>
+      <button class="vtab"        data-vi="1" onclick="switchVideo(1)">動画 02</button>
+    </div>
+
+    <!-- 動画プレイヤー -->
+    <div class="video-player-wrap">
+      <video id="videoPlayer" controls playsinline
+             style="width:100%;border-radius:12px;background:#000;max-height:60vh;">
+        <source id="videoSrc" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/MovieImade/M8-2.mp4" type="video/mp4">
+        お使いのブラウザは動画の再生に対応していません。
+      </video>
+    </div>
+
+    <p class="video-note">※ 読み込みに時間がかかる場合があります</p>
+  </div>
+</div>
+
+<!-- =====================================================
+     チラシモーダル（ライトボックス）
+===================================================== -->
+<div class="modal-overlay" id="flyerModalOverlay" onclick="closeFlyerModal()">
+  <div class="modal-box modal-box--flyer" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeFlyerModal()">✕</button>
+    <div class="modal-header">
+      <p class="modal-label">🎨 チラシ・フライヤーデザイン</p>
+      <h3 class="modal-title">Flyer Works</h3>
+    </div>
+
+    <!-- ナビゲーション -->
+    <div class="flyer-nav">
+      <button class="flyer-nav-btn" id="flyerPrev" onclick="changeFlyer(-1)">‹</button>
+      <span class="flyer-counter" id="flyerCounter">1 / 3</span>
+      <button class="flyer-nav-btn" id="flyerNext" onclick="changeFlyer(1)">›</button>
+    </div>
+
+    <!-- 画像表示エリア -->
+    <div class="flyer-img-wrap" id="flyerImgWrap">
+      <img id="flyerImg"
+           src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer.png"
+           alt="チラシデザイン"
+           style="max-width:100%;max-height:62vh;border-radius:10px;object-fit:contain;display:block;margin:0 auto;" />
+      <div class="flyer-loading" id="flyerLoading">読み込み中...</div>
+    </div>
+
+    <!-- サムネイル一覧 -->
+    <div class="flyer-thumbs">
+      <img class="flyer-thumb active" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer.png"
+           onclick="goFlyer(0)" alt="チラシ1" />
+      <img class="flyer-thumb" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/Flyer2.png"
+           onclick="goFlyer(1)" alt="チラシ2" />
+      <img class="flyer-thumb" src="https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer3.png"
+           onclick="goFlyer(2)" alt="チラシ3" />
+    </div>
+  </div>
+</div>
 
 <!-- ===================== QUOTE ===================== -->
 <section class="quote-strip">
@@ -1836,6 +2108,117 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' });
     }
   });
+});
+
+/* =====================================================
+   動画モーダル
+===================================================== */
+const VIDEOS = [
+  'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/MovieImade/M8-2.mp4',
+  'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/MovieImade/M9.mp4',
+];
+
+let currentVideoIdx = 0;
+
+function openVideoModal() {
+  currentVideoIdx = 0;
+  loadVideo(0);
+  document.getElementById('videoModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal() {
+  const player = document.getElementById('videoPlayer');
+  player.pause();
+  document.getElementById('videoModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchVideo(idx) {
+  const player = document.getElementById('videoPlayer');
+  player.pause();
+  currentVideoIdx = idx;
+  loadVideo(idx);
+  document.querySelectorAll('.vtab').forEach((t, i) => t.classList.toggle('active', i === idx));
+}
+
+function loadVideo(idx) {
+  const player = document.getElementById('videoPlayer');
+  const src = document.getElementById('videoSrc');
+  src.src = VIDEOS[idx];
+  player.load();
+}
+
+/* =====================================================
+   チラシモーダル（ライトボックス）
+===================================================== */
+const FLYERS = [
+  'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer.png',
+  'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/Flyer2.png',
+  'https://raw.githubusercontent.com/AkiraMihara1289/MyPortfolio/main/Fltyer/flyer3.png',
+];
+
+let currentFlyerIdx = 0;
+
+function openFlyerModal() {
+  currentFlyerIdx = 0;
+  updateFlyerView();
+  document.getElementById('flyerModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFlyerModal() {
+  document.getElementById('flyerModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function changeFlyer(dir) {
+  currentFlyerIdx = (currentFlyerIdx + dir + FLYERS.length) % FLYERS.length;
+  updateFlyerView();
+}
+
+function goFlyer(idx) {
+  currentFlyerIdx = idx;
+  updateFlyerView();
+}
+
+function updateFlyerView() {
+  const img = document.getElementById('flyerImg');
+  const loading = document.getElementById('flyerLoading');
+  const counter = document.getElementById('flyerCounter');
+
+  // ローディング表示
+  loading.classList.add('show');
+  img.style.opacity = '0';
+
+  img.onload = () => {
+    loading.classList.remove('show');
+    img.style.transition = 'opacity 0.35s ease';
+    img.style.opacity = '1';
+  };
+  img.onerror = () => {
+    loading.textContent = '画像を読み込めませんでした';
+  };
+
+  img.src = FLYERS[currentFlyerIdx];
+  counter.textContent = `${currentFlyerIdx + 1} / ${FLYERS.length}`;
+
+  // サムネイルのアクティブ更新
+  document.querySelectorAll('.flyer-thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === currentFlyerIdx);
+  });
+}
+
+// キーボード操作
+document.addEventListener('keydown', e => {
+  if (document.getElementById('flyerModalOverlay').classList.contains('open')) {
+    if (e.key === 'ArrowLeft')  changeFlyer(-1);
+    if (e.key === 'ArrowRight') changeFlyer(1);
+    if (e.key === 'Escape')     closeFlyerModal();
+  }
+  if (document.getElementById('videoModalOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') closeVideoModal();
+  }
 });
 </script>
 </body>
